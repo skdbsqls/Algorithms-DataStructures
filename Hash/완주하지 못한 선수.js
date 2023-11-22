@@ -30,6 +30,6 @@ function solution(participant, completion) {
 
   // 완주하지 못한 사람
   for (const [key, value] of Marathon) {
-    if ((value = 1)) return key;
+    if (value === 1) return key;
   }
 }
