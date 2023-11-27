@@ -16,6 +16,7 @@
 - 같은 전화번호가 중복해서 들어있지 않습니다.
 */
 
+// 풀이 1
 function solution(phone_book) {
   // 전화번호 배열 정렬
   phone_book.sort();
@@ -25,6 +26,32 @@ function solution(phone_book) {
     // 현재 번호가 다음 번호의 시작과 같으면 false
     if (phone_book[i] === phone_book[i + 1].slice(0, phone_book[i].length))
       return false;
+  }
+  return true;
+}
+
+// 풀이 2
+function solution(phone_book) {
+  // 전화번호 배열 정렬
+  phone_book.sort();
+
+  // Map 생성
+  const Book = new Map();
+
+  // 전화번호 배열의 모든 전화번호 Map 등록
+  for (phoneNumber of phone_book) {
+    Book.set(phoneNumber, true);
+  }
+
+  // 전화번호 배열의 순회하면서
+  for (phoneNumber of phone_book) {
+    // 하나의 전화번호가 가지는 모든 접두어에 접근
+    for (let i = 0; i < phoneNumber.length; i++) {
+      const prefix = phoneNumber.slice(0, i);
+
+      // 전화번호 Map에 해당 접두어가 있으면 false
+      if (Book.has(prefix)) return false;
+    }
   }
   return true;
 }
