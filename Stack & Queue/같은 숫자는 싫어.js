@@ -15,10 +15,26 @@
 - 배열 arr의 원소의 크기 : 0보다 크거나 같고 9보다 작거나 같은 정수
 */
 
+// 풀이 1
 function solution(arr) {
   let answer = [];
   for (let i = 0; i < arr.length; i++) {
+    // 중복되지 않은 숫자가 나오면 정답 배열에 추가
     if (arr[i] !== arr[i + 1]) answer.push(arr[i]);
   }
   return answer;
+}
+
+// 풀이 2
+function solution(arr) {
+  let answer = [arr[0]];
+  for (let i = 1; i < arr.length; i++) {
+    if (answer[answer.length - 1] !== arr[i]) answer.push(arr[i]);
+    console.log(answer[answer.length - 1]);
+  }
+}
+
+// 풀이 3
+function solution(arr) {
+  return arr.fliter((value, index) => value != arr[index + 1]);
 }
