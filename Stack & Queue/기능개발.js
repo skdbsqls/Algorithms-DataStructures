@@ -11,6 +11,7 @@
 - 배포는 하루에 한 번만 할 수 있으며, 하루의 끝에 이루어진다고 가정합니다. 예를 들어 진도율이 95%인 작업의 개발 속도가 하루에 4%라면 배포는 2일 뒤에 이루어집니다.
 */
 
+// 풀이 1
 function solution(progresses, speeds) {
   // 남은 진도율 구하기
   let remains = [];
@@ -45,5 +46,24 @@ function solution(progresses, speeds) {
     }
   }
   answer.push(count);
+  return answer;
+}
+
+// 풀이 2
+function solution(progresses, speeds) {
+  let answer = [0];
+  let days = progresses.map((progress, index) =>
+    Math.ceil((100 - progress) / speeds[index])
+  );
+  let maxDay = days[0];
+
+  for (let i = 0, j = 0; i < days.length; i++) {
+    if (days[i] <= maxDay) {
+      answer[j]++;
+    } else {
+      maxDay = days[i];
+      answer[++j] = 1;
+    }
+  }
   return answer;
 }
