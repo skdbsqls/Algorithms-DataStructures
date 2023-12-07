@@ -14,6 +14,31 @@
 해당 프로세스가 몇 번째로 실행되는지 return 하도록 solution 함수를 작성해주세요.
 */
 
+// 풀이 1
+function solution(priorities, location) {
+  const arr = priorities.map((process, index) => {
+    return { process, index };
+  });
+
+  let queue = [];
+
+  while (arr.length) {
+    // 실행 대기 큐에서 프로세스 하나를 꺼낸다
+    const first = arr.shift();
+
+    // 대기중인 프로세스 중 우선순위가 더 높은 프로세스가 있는 경우
+    if (arr.some((element) => element.process > first.process)) {
+      arr.push(first);
+    }
+    // 없는 경우
+    else queue.push(first);
+  }
+
+  // location에 해당하는 요소의 인덱스 찾기
+  return queue.findIndex((element) => element.index === location) + 1;
+}
+
+// 풀이 2
 function solution(priorities, location) {
   let answer = 0;
 
