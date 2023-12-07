@@ -26,7 +26,7 @@ function solution(progresses, speeds) {
       if (i === j) {
         const day = Math.ceil(remains[i] / speeds[j]);
 
-        // 남은 진도율 삭제 및 배포까지 걸리는 일수 삽입
+        // 배포까지 걸리는 일수 삽입
         days.push(day);
       }
     }
@@ -52,11 +52,12 @@ function solution(progresses, speeds) {
 // 풀이 2
 function solution(progresses, speeds) {
   let answer = [0];
+
   let days = progresses.map((progress, index) =>
     Math.ceil((100 - progress) / speeds[index])
   );
-  let maxDay = days[0];
 
+  let maxDay = days[0];
   for (let i = 0, j = 0; i < days.length; i++) {
     if (days[i] <= maxDay) {
       answer[j]++;
