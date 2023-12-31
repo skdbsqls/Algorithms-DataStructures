@@ -18,3 +18,29 @@ solution 함수의 매개변수로 다리에 올라갈 수 있는 트럭 수 bri
 - truck_weights의 길이는 1 이상 10,000 이하입니다.
 - 모든 트럭의 무게는 1 이상 weight 이하입니다.
 */
+
+function solution(bridge_length, weight, truck_weights) {
+  let answer = 0; // 경과 시간
+  let bridge = new Array(bridge_length).fill(0); // 다리에 올라갈 수 있는 트럭 수에 맞게 다리 생성
+
+  while (bridge.length) {
+    // 다리를 건너는 트럭 중 첫 번째 요소 삭제
+    bridge.shift();
+
+    // 대기 트럭이 존재하는 경우
+    if (truck_weights.length) {
+      // 다리를 건너는 트럭의 무게 합
+      const bridge_weight = bridge.reduce((acc, cur) => acc + cur, 0);
+
+      // 다리가 견딜 수 있는 무게에 여유가 있는 경우
+      if (bridge_weight + truck_weights[0] <= weight) {
+        // 대기 트럭의 첫 번째 요소 삭제 및 다리에 올리기
+        bridge.push(truck_weights.shift());
+      }
+      // 다리가 견딜 수 있는 무게가 끝난 경우
+      else bridge.push(0);
+    }
+    answer++;
+  }
+  return answer;
+}
