@@ -19,10 +19,12 @@ solution 함수의 매개변수로 다리에 올라갈 수 있는 트럭 수 bri
 - 모든 트럭의 무게는 1 이상 weight 이하입니다.
 */
 
+// 풀이 1
 function solution(bridge_length, weight, truck_weights) {
   let answer = 0; // 경과 시간
   let bridge = new Array(bridge_length).fill(0); // 다리에 올라갈 수 있는 트럭 수에 맞게 다리 생성
 
+  // 다리를 건너는 트럭이 없을 때까지 (모든 트럭이 다리를 건널 떄까지 반복)
   while (bridge.length) {
     // 다리를 건너는 트럭 중 첫 번째 요소 삭제
     bridge.shift();
@@ -40,7 +42,39 @@ function solution(bridge_length, weight, truck_weights) {
       // 다리가 견딜 수 있는 무게가 끝난 경우
       else bridge.push(0);
     }
+    // 경과 시간 +1초
     answer++;
   }
   return answer;
+}
+
+// 풀이 2
+function solution(bridge_length, weight, truck_weights) {
+  let time = 0; // 경과 시간
+  let qu = [[0, 0]]; // [트럭 무게, 나갈 시간]
+  let bridge_weight = 0; // 다리 위 트럭의 총 무게
+
+  // 대기 트럭, 다리를 건너는 트럭이 모두 0일 때까지 반복
+  while (qu.length > 0 || truck_weights.length > 0) {
+    // (1) 현재 시간이 큐의 맨 처음 요소의 나갈 시간과 같다면
+    //     첫 번째 요소를 내보내고 다르 위 트럭의 무게에서 빼준다
+    if (qu[0][1] === time) {
+      bridge_weight -= qu.shift()[0];
+    }
+    // (2) 다리가 견딜 수 있는 무게에 여유가 있다면
+    //     다리 위 트럭 무게를 더해주고, 큐 위에 새로운 트럭도 추가한다
+    if (bridge_weight + truck_weights[0] <= weight) {
+      bridge_weight += truck_weights[0];
+      qu.push([truck_weights.shift(), time + bridge_length]);
+    } else {
+      // (3) 다리가 견딜 수 있는 무게가 끝난 경우
+      //     큐의 첫 번째 요소가 빠지도록 그 시간으로 점프한다
+      if (qu[0]) {
+        time = qu[0][1] - 1;
+      }
+    }
+    // 경과 시간 업데이트
+    time++;
+  }
+  return time;
 }
