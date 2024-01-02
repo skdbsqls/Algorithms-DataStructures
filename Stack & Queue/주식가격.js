@@ -8,6 +8,20 @@
 */
 
 function solution(prices) {
-  var answer = [];
+  let answer = [];
+
+  // 주식가격이 담긴 배열의 첫 번째 요소부터
+  for (let i = 0; i < prices.length; i++) {
+    let time = 0; // 기간
+    // 남은 주식가격 중 앞에서 부터 하나씩 비교
+    for (let j = i + 1; j < prices.length; j++) {
+      // 그렇지 않은경우 시간 + 1
+      time++;
+      // 첫 번째 요소보다 작은 숫자가 있으면 (가격이 떨어지는 시점에서 stop)
+      if (prices[i] > prices[j]) break;
+    }
+    answer.push(time);
+  }
+
   return answer;
 }
