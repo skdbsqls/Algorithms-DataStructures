@@ -7,6 +7,7 @@
 - prices의 길이는 2 이상 100,000 이하입니다.
 */
 
+// 풀이 1
 function solution(prices) {
   let answer = [];
 
@@ -21,6 +22,28 @@ function solution(prices) {
       if (prices[i] > prices[j]) break;
     }
     answer.push(time);
+  }
+
+  return answer;
+}
+
+// 풀이 2
+function solution(prices) {
+  const answer = new Array(prices.length).fill(0);
+  const stack = [];
+  let length = prices.length;
+
+  for (let i = 0; i < length; i++) {
+    while (stack.length && prices[i] < prices[stack[stack.length - 1]]) {
+      let temp = stack.pop();
+      answer[temp] = i - temp;
+    }
+    stack.push(i);
+  }
+
+  while (stack.length) {
+    let temp = stack.pop();
+    answer[temp] = length - temp - 1;
   }
 
   return answer;
