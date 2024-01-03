@@ -19,6 +19,22 @@ commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 
 */
 
 function solution(array, commands) {
-  var answer = [];
+  let answer = [];
+
+  for (const command of commands) {
+    // i, j, k 설정하기
+    let i = command[0] - 1;
+    let j = command[1];
+    let k = command[2] - 1;
+
+    // 배열 자르기
+    const sliceArr = array.slice(i, j);
+
+    // 배열 정렬하기
+    sliceArr.sort((a, b) => a - b);
+
+    // k번째 수 구하기
+    answer.push(sliceArr[k]);
+  }
   return answer;
 }
