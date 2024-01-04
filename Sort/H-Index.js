@@ -12,6 +12,7 @@ H-Index는 과학자의 생산성과 영향력을 나타내는 지표입니다.
 - 논문별 인용 횟수는 0회 이상 10,000회 이하입니다.
 */
 
+// 풀이 1
 function solution(citations) {
   // 논문별 인용 횟수 내림차순 정렬
   citations.sort((a, b) => b - a);
@@ -26,4 +27,17 @@ function solution(citations) {
 
   // 배열에서 최대값 구하기
   return Math.max(...Hindex);
+}
+
+// 풀이 2
+function solution(citations) {
+  // 논문별 인용 횟수 내림차순 정렬
+  citations.sort((a, b) => b - a);
+
+  // H-Index 구하기
+  let i = 0;
+  while (i + 1 <= citations[i]) {
+    i++;
+  }
+  return i;
 }
