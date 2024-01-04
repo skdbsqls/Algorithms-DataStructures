@@ -13,6 +13,21 @@
 */
 
 function solution(numbers) {
-  var answer = "";
+  let answer = "";
+
+  // 각 수를 문자열로 변환
+  numbers = numbers.map((num) => num.toString());
+
+  // 변환된 문자열로 된 숫자를 붙였을 때 큰 수가 앞에 오도록 정렬
+  numbers.sort((a, b) => b + a - (a + b));
+
+  // 문자열로 반환
+  answer = numbers.join("");
+
+  // 배열이 [0, 0, 0]과 같은 경우 => 결국 답이 0인 경우
+  if (answer[0] === "0") {
+    answer = "0";
+  }
+
   return answer;
 }
