@@ -29,6 +29,28 @@ function solution(prices) {
 
 // 풀이 2
 function solution(prices) {
+  // 배열 뒤집기
+  prices.reverse();
+
+  let answer = [];
+
+  while (prices.length) {
+    let last = prices.pop();
+    let time = 0;
+
+    for (let i = prices.length - 1; i >= 0; i--) {
+      if (prices[i] < last) {
+        time++;
+        break;
+      } else time++;
+    }
+    answer.push(time);
+  }
+  return answer;
+}
+
+// 풀이 3
+function solution(prices) {
   const answer = new Array(prices.length).fill(0);
   const stack = [];
   let length = prices.length;
