@@ -34,10 +34,13 @@ function solution(prices) {
 
   let answer = [];
 
+  // 배열의 길이 만큼
   while (prices.length) {
+    // 뒤에서 하나씩 꺼내면? pop() 메서드의 시간 복잡도는 O(1)
     let last = prices.pop();
     let time = 0;
 
+    // 남은 배열의 요소를 뒤에서부터 하나씩 비교
     for (let i = prices.length - 1; i >= 0; i--) {
       if (prices[i] < last) {
         time++;

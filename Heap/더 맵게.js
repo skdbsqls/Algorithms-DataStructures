@@ -17,6 +17,32 @@ Leo가 가진 음식의 스코빌 지수를 담은 배열 scoville과 원하는 
 */
 
 function solution(scoville, K) {
-  var answer = 0;
-  return answer;
+  let count = 0;
+
+  // 모든 음식의 스코빌 지수가 K 이상이 될 때까지
+  while (Math.min(...scoville) < K) {
+    // 오름차순 정렬
+    scoville.sort((a, b) => a - b);
+
+    // 첫번째 최소값과 두번째 최소값 가져오기
+    let first = scoville.shift();
+    let second = scoville.shift();
+
+    // 새로운 스코빌 구하기
+    let newScoville = first + second * 2;
+    scoville.push(newScoville);
+
+    // 섞은 횟수 + 1
+    count++;
+
+    // 모든 음식의 스코빌 지수를 K 이상으로 만들 수 없는 경우에는 -1을 return
+    if (count === scoville.length - 1 && scoville[0] < K) {
+      count = -1;
+      break;
+    }
+  }
+
+  return count;
 }
+
+solution([1, 2, 3, 9, 10, 12], 7);
