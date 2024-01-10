@@ -27,6 +27,28 @@
 */
 
 function solution(sizes) {
-  var answer = 0;
-  return answer;
+  // 명함 사이즈 배열을 돌면서 가로 세로 중 큰 값과 작은 값을 분리
+  let bigger = [];
+  let smaller = [];
+
+  for (let i = 0; i < sizes.length; i++) {
+    // 가로 길이와 세로 길이
+    let width = sizes[i][0];
+    let height = sizes[i][1];
+
+    if (width >= height) {
+      bigger.push(width);
+      smaller.push(height);
+    } else {
+      bigger.push(height);
+      smaller.push(width);
+    }
+  }
+
+  // 큰 값 배열과 작은 값 배열에서 최대값 찾기
+  let big = Math.max(...bigger);
+  let small = Math.max(...smaller);
+
+  // 정답 구하기
+  return big * small;
 }
