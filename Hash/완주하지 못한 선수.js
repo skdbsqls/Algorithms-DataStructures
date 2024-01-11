@@ -10,6 +10,7 @@
 - 참가자 중에는 동명이인이 있을 수 있습니다. 
 */
 
+// 풀이 1
 function solution(participant, completion) {
   // Map 생성
   const Marathon = new Map();
@@ -30,6 +31,29 @@ function solution(participant, completion) {
 
   // 완주하지 못한 사람
   for (const [key, value] of Marathon) {
+    if (value === 1) return key;
+  }
+}
+
+// 풀이 2
+function solution(participant, completion) {
+  // Map 생성
+  const map = new Map();
+
+  // 참가자 등록 (+1) 및 완주자 확인 (-1)
+  for (let i = 0; i < participant.length; i++) {
+    // 참가자와 완주자
+    let a = participant[i];
+    let b = completion[i];
+
+    // 등록되지 않았다면 등록 0 + 1, 이미 등록되었다면 현재 값 + 1
+    map.set(a, (map.get(a) || 0) + 1);
+    // 등록되지 않았다면 0 - 1, 이미 등록되었다면 현재 값 - 1
+    map.set(b, (map.get(b) || 0) - 1);
+  }
+
+  // 완주하지 못한 사람
+  for (const [key, value] of map) {
     if (value === 1) return key;
   }
 }
