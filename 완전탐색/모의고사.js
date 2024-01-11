@@ -18,6 +18,47 @@
 */
 
 function solution(answers) {
-  var answer = [];
+  let answer = [];
+
+  // 수포자 별 반복 패턴 정의
+  let one = [1, 2, 3, 4, 5];
+  let two = [2, 1, 2, 3, 2, 4, 2, 5];
+  let three = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+
+  // 모의고사 정답의 길이
+  const length = answers.length;
+
+  // 정답의 길이만큼 수포자별 답안 작성
+  let oneAnswers = [];
+  let twoAnswers = [];
+  let threeAnswers = [];
+
+  for (let i = 0; i < length; i++) {
+    oneAnswers.push(one[i % one.length]);
+    twoAnswers.push(two[i % two.length]);
+    threeAnswers.push(three[i % three.length]);
+  }
+
+  // 수포자별 채점
+  let oneScore = 0;
+  let twoScore = 0;
+  let threeScore = 0;
+  for (let i = 0; i < length; i++) {
+    if (oneAnswers[i] === answers[i]) oneScore++;
+    if (twoAnswers[i] === answers[i]) twoScore++;
+    if (threeAnswers[i] === answers[i]) threeScore++;
+  }
+
+  // 가장 높은 점수를 받은 사람 구하기
+  const scores = [oneScore, twoScore, threeScore];
+  const highScore = Math.max(...scores);
+  console.log(highScore);
+
+  for (let i = 0; i < scores.length; i++) {
+    if (scores[i] === highScore) {
+      answer.push(i + 1);
+    }
+  }
+
   return answer;
 }
