@@ -24,6 +24,7 @@ function solution(participant, completion) {
 
   // 완주한 참가자의 경우 - 1
   for (const person of completion) {
+    // 완주한 사람이 참가자 목록에 없는 경우가 없으므로 이는 생략 가능
     if (Marathon.has(person)) {
       Marathon.set(person, Marathon.get(person) - 1);
     }

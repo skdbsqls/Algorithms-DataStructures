@@ -24,6 +24,7 @@ nums의 길이(N)는 1 이상 10,000 이하의 자연수이며, 항상 짝수로
 가장 많은 종류의 폰켓몬을 선택하는 방법이 여러 가지인 경우에도, 선택할 수 있는 폰켓몬 종류 개수의 최댓값 하나만 return 하면 됩니다.
 */
 
+// 풀이 1
 function solution(nums) {
   // 최대값 셋팅 및 Map 생성
   let answer = nums.length / 2;
@@ -40,4 +41,14 @@ function solution(nums) {
   PhoneKet.size >= answer ? (answer = answer) : (answer = PhoneKet.size);
 
   return answer;
+}
+
+// 풀이 2
+function solution(nums) {
+  let max = nums.length / 2;
+  // 내가 필요한 건 중복을 제거한 배열의 크기 즉, 종류의 개수
+  // Set은 중복을 허용하지 않음
+  let set = new Set(nums);
+
+  return set.size > max ? max : set.size;
 }
