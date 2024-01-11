@@ -26,6 +26,7 @@
   - w와 h는 1 이상 1,000 이하인 자연수입니다.
 */
 
+// 풀이 1
 function solution(sizes) {
   // 명함 사이즈 배열을 돌면서 가로 세로 중 큰 값과 작은 값을 분리
   let bigger = [];
@@ -51,4 +52,35 @@ function solution(sizes) {
 
   // 정답 구하기
   return big * small;
+}
+
+// 풀이 2
+function solution(sizes) {
+  // 세로의 길이가 더 큰 경우 가로와 세로의 위치를 바꿔줌
+  const rotated = sizes.map(([w, h]) => (w < h ? [h, w] : [w, h]));
+
+  let width = 0;
+  let height = 0;
+
+  // 위치를 바꿔준 배열을 순회하며 최대값을 찾아줌
+  rotated.forEach(([w, h]) => {
+    if (w > width) width = w;
+    if (h > height) height = h;
+  });
+  return width * height;
+}
+
+// 풀이 3
+function solution(sizes) {
+  let width = 0;
+  let height = 0;
+  sizes.forEach((size) => {
+    // 배열을 순회하며 sort를 통해 큰 값이 먼저 오도록 (내림차순) 정렬한 뒤
+    const [a, b] = size.sort((a, b) => a - b);
+    // 가로와 세로의 최대값을 찾아줌
+    if (a > width) width = a;
+    if (b > height) height = b;
+  });
+
+  return width * height;
 }
