@@ -17,6 +17,7 @@
 - 가장 높은 점수를 받은 사람이 여럿일 경우, return하는 값을 오름차순 정렬해주세요.
 */
 
+// 풀이 1
 function solution(answers) {
   let answer = [];
 
@@ -52,12 +53,45 @@ function solution(answers) {
   // 가장 높은 점수를 받은 사람 구하기
   const scores = [oneScore, twoScore, threeScore];
   const highScore = Math.max(...scores);
-  console.log(highScore);
 
   for (let i = 0; i < scores.length; i++) {
     if (scores[i] === highScore) {
       answer.push(i + 1);
     }
+  }
+
+  return answer;
+}
+
+// 풀이 2
+function solution(answers) {
+  // 정답 배열
+  let answer = [];
+
+  // 수포자 별 반복 패턴 정의
+  let one = [1, 2, 3, 4, 5];
+  let two = [2, 1, 2, 3, 2, 4, 2, 5];
+  let three = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+
+  // 수포자별 답안 작성 및 채점
+  let oneScore = answers.filter((a, i) => a === one[i % one.length]).length;
+  let twoScore = answers.filter((a, i) => a === two[i % two.length]).length;
+  let threeScore = answers.filter(
+    (a, i) => a === three[i % three.length]
+  ).length;
+
+  // 최대값 구하기
+  let maxScore = Math.max(oneScore, twoScore, threeScore);
+
+  // 정답 구하기
+  if (oneScore === maxScore) {
+    answer.push(1);
+  }
+  if (twoScore === maxScore) {
+    answer.push(2);
+  }
+  if (threeScore === maxScore) {
+    answer.push(3);
   }
 
   return answer;
