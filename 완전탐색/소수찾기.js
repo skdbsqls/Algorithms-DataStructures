@@ -12,7 +12,44 @@
 - "013"은 0, 1, 3 숫자가 적힌 종이 조각이 흩어져있다는 의미입니다.
 */
 
+// 소수 판별하기
+const isPrime = (num) => {
+  // 0과 1은 소수가 아님
+  if (num <= 1) return false;
+  // 소수는 2부터 1과 자신만으로 나누어 떨어짐
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+};
+
 function solution(numbers) {
-  var answer = 0;
-  return answer;
+  // 배열로 변환
+  const arr = numbers.split("");
+  const results = [];
+
+  // 모든 순열 구하기
+  const getPermutation = (arr, fixed) => {
+    if (arr.length) {
+      for (let i = 0; i < arr.length; i++) {
+        // fixed을 제외한 배열 만들기
+        const temp = [...arr];
+        temp.splice(i, 1);
+
+        // parseInt? "011"과 "11"은 같은 숫자로 취급
+        if (isPrime(parseInt(fixed + arr[i]))) {
+          results.push(parseInt(fixed + arr[i]));
+        }
+        getPermutation(temp, fixed + arr[i]);
+      }
+    }
+  };
+  getPermutation(arr, "");
+
+  // 중복 제거
+  const set = new Set(results);
+  return set.size;
 }
+
+solution("17");
+solution("011");
