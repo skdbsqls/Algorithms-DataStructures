@@ -50,6 +50,3 @@ function solution(numbers) {
   const set = new Set(results);
   return set.size;
 }
-
-solution("17");
-solution("011");
