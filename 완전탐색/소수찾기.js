@@ -77,3 +77,24 @@ const isPrime3 = (n) => {
   }
   return true;
 };
+
+// (4) 에라토스테네스의 체
+const isPrime4 = (n) => {
+  // 인덱스가 0부터 n까지인 배열 생성 (인덱스 0과 1은 false 나머지는 true)
+  let arr = Array(n + 1)
+    .fill(true)
+    .fill(false, 0, 2);
+
+  // 2부터 n의 제곱근까지 반복
+  for (let i = 2; i * i <= n; i++) {
+    if (arr[i]) {
+      // i의 배수는 false로 변경
+      for (let j = i * i; j <= n; j += i) {
+        arr[j] = false;
+      }
+    }
+  }
+
+  // n까지의 숫자 중 소수만 true인 배열 반환
+  return arr;
+};
