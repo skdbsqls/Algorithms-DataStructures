@@ -15,7 +15,7 @@
 // 소수 판별하기
 const isPrime = (num) => {
   // 0과 1은 소수가 아님
-  if (num <= 1) return false;
+  if (num < 2) return false;
   // 소수는 2부터 1과 자신만으로 나누어 떨어짐
   for (let i = 2; i <= Math.sqrt(num); i++) {
     if (num % i === 0) return false;
@@ -46,7 +46,34 @@ function solution(numbers) {
   };
   getPermutation(arr, "");
 
+  console.log(results);
+
   // 중복 제거
   const set = new Set(results);
   return set.size;
 }
+
+// 소수 판별하기
+// (1) 반복문 (n-1)
+const isPrime1 = (n) => {
+  for (let i = 2; i < n; i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+};
+
+// (2) 반복문 (n-2)
+const isPrime2 = (n) => {
+  for (let i = 2; i < n / 2; i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+};
+
+// (3) 반복문 (√n)
+const isPrime3 = (n) => {
+  for (let i = 2; i < Math.sqrt(n); i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+};
