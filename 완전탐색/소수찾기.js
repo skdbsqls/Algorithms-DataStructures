@@ -55,7 +55,7 @@ function solution(numbers) {
   return set.size;
 }
 
-// 소수 판별하기
+// --------- 소수 판별하기
 // (1) 반복문 (n-1)
 const isPrime1 = (n) => {
   for (let i = 2; i < n; i++) {
@@ -101,4 +101,68 @@ const isPrime4 = (n) => {
   return arr;
 };
 
-// 순열과 조합
+// --------- 순열과 조합
+// (1) 조합
+const getCombinations = (arr, selectNumber) => {
+  const results = [];
+  // 재귀 종료 조건: 한 개를 선택할 땐, 모든 배열의 요소를 하나씩 선택해 배열로 리턴한다.
+  if (selectNumber === 1) return arr.map((value) => [value]);
+
+  // forEach: 배열의 모든 요소를 처음부터 끝까지 한 번씩 고정(fixed)되게 한다.
+  arr.forEach((fixed, index, origin) => {
+    // fixed를 제외하고 뒤의 나머지 뒤의 배열을 구한다.
+    const rest = origin.slice(index + 1);
+    // 나머지 배열에 대한 조합을 구한다.
+    const combinations = getCombinations(rest, selectNumber - 1);
+    // 나머지 배열에 대한 조합을 고정(fixed)된 요소에 붙인다.
+    const attached = combinations.map((combination) => [fixed, ...combination]);
+    // 최종적으로 만들어진 조합을 전개 연산자를 사용해 results 배열에 담는다.
+    results.push(...attached);
+  });
+  // results를 반환한다.
+  return results;
+};
+
+const arr1 = [1, 2, 3, 4];
+const result1 = getCombinations(arr1, 3);
+console.log(result1);
+// => [ [ 1, 2, 3 ], [ 1, 2, 4 ], [ 1, 3, 4 ], [ 2, 3, 4 ] ]
+
+// (2) 순열
+const getPermutations = function (arr, selectNumber) {
+  const results = [];
+  // 재귀 종료 조건: 한 개를 선택할 땐, 모든 배열의 요소를 하나씩 선택해 배열로 리턴한다.
+  if (selectNumber === 1) return arr.map((value) => [value]);
+
+  // forEach: 배열의 모든 요소를 처음부터 끝까지 한 번씩 고정(fixed)되게 한다.
+  arr.forEach((fixed, index, origin) => {
+    // fixed를 제외한 모든 요소를 갖는 나머지 배열을 구한다.
+    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
+    // 나머지 배열에 대한 순열을 구한다.
+    const permutations = getPermutations(rest, selectNumber - 1);
+    // 나머지 배열에 대한 순열을 고정(fixed)된 요소에 붙인다.
+    const attached = permutations.map((permutation) => [fixed, ...permutation]);
+    // 최종적으로 만들어진 순열을 전개 연산자를 사용해 results 배열에 담는다.
+    results.push(...attached);
+  });
+  // results를 반환한다.
+  return results;
+};
+
+const arr = [1, 2, 3, 4];
+const result = getPermutations(arr, 3);
+console.log(result);
+// => [
+//   [ 1, 2, 3 ], [ 1, 2, 4 ],
+//   [ 1, 3, 2 ], [ 1, 3, 4 ],
+//   [ 1, 4, 2 ], [ 1, 4, 3 ],
+//   [ 2, 1, 3 ], [ 2, 1, 4 ],
+//   [ 2, 3, 1 ], [ 2, 3, 4 ],
+//   [ 2, 4, 1 ], [ 2, 4, 3 ],
+//   [ 3, 1, 2 ], [ 3, 1, 4 ],
+//   [ 3, 2, 1 ], [ 3, 2, 4 ],
+//   [ 3, 4, 1 ], [ 3, 4, 2 ],
+//   [ 4, 1, 2 ], [ 4, 1, 3 ],
+//   [ 4, 2, 1 ], [ 4, 2, 3 ],
+//   [ 4, 3, 1 ], [ 4, 3, 2 ]
+// ]
