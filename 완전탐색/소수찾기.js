@@ -110,7 +110,7 @@ const getCombinations = (arr, selectNumber) => {
 
   // forEach: 배열의 모든 요소를 처음부터 끝까지 한 번씩 고정(fixed)되게 한다.
   arr.forEach((fixed, index, origin) => {
-    // fixed를 제외하고 뒤의 나머지 뒤의 배열을 구한다.
+    // fixed를 제외하고 뒤의 나머지 배열을 구한다.
     const rest = origin.slice(index + 1);
     // 나머지 배열에 대한 조합을 구한다.
     const combinations = getCombinations(rest, selectNumber - 1);
@@ -149,9 +149,9 @@ const getPermutations = function (arr, selectNumber) {
   return results;
 };
 
-const arr = [1, 2, 3, 4];
-const result = getPermutations(arr, 3);
-console.log(result);
+const arr2 = [1, 2, 3, 4];
+const result2 = getPermutations(arr2, 3);
+console.log(result2);
 // => [
 //   [ 1, 2, 3 ], [ 1, 2, 4 ],
 //   [ 1, 3, 2 ], [ 1, 3, 4 ],
@@ -166,3 +166,81 @@ console.log(result);
 //   [ 4, 2, 1 ], [ 4, 2, 3 ],
 //   [ 4, 3, 1 ], [ 4, 3, 2 ]
 // ]
+
+// (3) 중복 조합
+const getCombinationsWithRepetition = (arr, selectNumber) => {
+  const results = [];
+  // 재귀 종료 조건: 한 개를 선택할 땐, 모든 배열의 요소를 하나씩 선택해 배열로 리턴한다.
+  if (selectNumber === 1) return arr.map((value) => [value]);
+
+  // forEach: 배열의 모든 요소를 처음부터 끝까지 한 번씩 고정(fixed)되게 한다.
+  arr.forEach((fixed, index, origin) => {
+    // fixed를 포함하고 뒤의 나머지 배열을 구한다.
+    const rest = origin.slice(index);
+    // 나머지 배열에 대한 조합을 구한다.
+    const combinations = getCombinationsWithRepetition(rest, selectNumber - 1);
+    // 나머지 배열에 대한 조합을 고정(fixed)된 요소에 붙인다.
+    const attached = combinations.map((combination) => [fixed, ...combination]);
+    // 최종적으로 만들어진 조합을 전개 연산자를 사용해 results 배열에 담는다.
+    results.push(...attached);
+  });
+  // results를 반환한다.
+  return results;
+};
+
+const arr3 = [1, 2, 3, 4];
+const result3 = getCombinationsWithRepetition(arr3, 3);
+console.log(result3);
+/* => [
+  [ 1, 1, 1 ], [ 1, 1, 2 ],
+  [ 1, 1, 3 ], [ 1, 1, 4 ],
+  [ 1, 2, 2 ], [ 1, 2, 3 ],
+  [ 1, 2, 4 ], [ 1, 3, 3 ],
+  [ 1, 3, 4 ], [ 1, 4, 4 ],
+  [ 2, 2, 2 ], [ 2, 2, 3 ],
+  [ 2, 2, 4 ], [ 2, 3, 3 ],
+  [ 2, 3, 4 ], [ 2, 4, 4 ],
+  [ 3, 3, 3 ], [ 3, 3, 4 ],
+  [ 3, 4, 4 ], [ 4, 4, 4 ]
+] */
+
+// (4) 중복 순열
+const getPermutationsWithRepetition = function (arr, selectNumber) {
+  const results = [];
+  // 재귀 종료 조건: 한 개를 선택할 땐, 모든 배열의 요소를 하나씩 선택해 배열로 리턴한다.
+  if (selectNumber === 1) return arr.map((value) => [value]);
+
+  // forEach: 배열의 모든 요소를 처음부터 끝까지 한 번씩 고정(fixed)되게 한다.
+  arr.forEach((fixed) => {
+    // 원본 배열에 대한 순열을 구한다.
+    const permutations = getPermutationsWithRepetition(arr, selectNumber - 1);
+    // 원본 배열에 대한 순열을 고정(fixed)된 요소에 붙인다.
+    const attached = permutations.map((permutation) => [fixed, ...permutation]);
+    // 최종적으로 만들어진 순열을 전개 연산자를 사용해 results 배열에 담는다.
+    results.push(...attached);
+  });
+  // results를 반환한다.
+  return results;
+};
+
+const arr4 = [1, 2, 3, 4];
+const result4 = getPermutationsWithRepetition(arr4, 3);
+console.log(result4);
+/* => [
+  [ 1, 1, 1 ], [ 1, 1, 2 ], [ 1, 1, 3 ], [ 1, 1, 4 ],
+  [ 1, 2, 1 ], [ 1, 2, 2 ], [ 1, 2, 3 ], [ 1, 2, 4 ],
+  [ 1, 3, 1 ], [ 1, 3, 2 ], [ 1, 3, 3 ], [ 1, 3, 4 ],
+  [ 1, 4, 1 ], [ 1, 4, 2 ], [ 1, 4, 3 ], [ 1, 4, 4 ],
+  [ 2, 1, 1 ], [ 2, 1, 2 ], [ 2, 1, 3 ], [ 2, 1, 4 ],
+  [ 2, 2, 1 ], [ 2, 2, 2 ], [ 2, 2, 3 ], [ 2, 2, 4 ],
+  [ 2, 3, 1 ], [ 2, 3, 2 ], [ 2, 3, 3 ], [ 2, 3, 4 ],
+  [ 2, 4, 1 ], [ 2, 4, 2 ], [ 2, 4, 3 ], [ 2, 4, 4 ],
+  [ 3, 1, 1 ], [ 3, 1, 2 ], [ 3, 1, 3 ], [ 3, 1, 4 ],
+  [ 3, 2, 1 ], [ 3, 2, 2 ], [ 3, 2, 3 ], [ 3, 2, 4 ],
+  [ 3, 3, 1 ], [ 3, 3, 2 ], [ 3, 3, 3 ], [ 3, 3, 4 ],
+  [ 3, 4, 1 ], [ 3, 4, 2 ], [ 3, 4, 3 ], [ 3, 4, 4 ],
+  [ 4, 1, 1 ], [ 4, 1, 2 ], [ 4, 1, 3 ], [ 4, 1, 4 ],
+  [ 4, 2, 1 ], [ 4, 2, 2 ], [ 4, 2, 3 ], [ 4, 2, 4 ],
+  [ 4, 3, 1 ], [ 4, 3, 2 ], [ 4, 3, 3 ], [ 4, 3, 4 ],
+  [ 4, 4, 1 ], [ 4, 4, 2 ], [ 4, 4, 3 ], [ 4, 4, 4 ]
+] */
