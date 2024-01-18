@@ -32,8 +32,17 @@ function solution(brown, yellow) {
   }
   // 약수의 개수가 짝수 일 때
   else {
-    answer.push(measures[middle]);
-    answer.push(measures[middle - 1]);
+    // 약수의 짝을 맞추기 위해 배열을 둘로 나눔
+    const arr1 = measures.slice(0, middle);
+    const arr2 = measures.slice(middle).reverse();
+
+    // 두 배열을 돌면서 약수의 짝 중에 yellow 수가 맞는 것을 찾아줌
+    for (let i = 0; i < middle; i++) {
+      if ((arr1[i] - 2) * (arr2[i] - 2) === yellow) {
+        answer.push(arr2[i]);
+        answer.push(arr1[i]);
+      }
+    }
   }
 
   return answer;
