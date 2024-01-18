@@ -11,6 +11,30 @@ Leo가 본 카펫에서 갈색 격자의 수 brown, 노란색 격자의 수 yell
 */
 
 function solution(brown, yellow) {
-  var answer = [];
+  let answer = [];
+
+  // yellow의 약수 구하기
+  const measures = [];
+
+  for (let i = 1; i <= yellow; i++) {
+    if (yellow % i === 0) {
+      measures.push(i);
+    }
+  }
+
+  // 약수의 가장 가운데 값 구하기
+  const middle = Math.floor(measures.length / 2);
+
+  // 약수의 개수가 홀수 일 때
+  if (measures.length % 2 !== 0) {
+    answer.push(measures[middle] + 2);
+    answer.push(measures[middle] + 2);
+  }
+  // 약수의 개수가 짝수 일 때
+  else {
+    answer.push(measures[middle] + 2);
+    answer.push(measures[middle - 1] + 2);
+  }
+
   return answer;
 }
