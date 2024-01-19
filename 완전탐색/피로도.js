@@ -20,6 +20,34 @@ XX게임에는 피로도 시스템(0 이상의 정수로 표현합니다)이 있
 */
 
 function solution(k, dungeons) {
-  var answer = -1;
-  return answer;
+  let count = 0;
+  // 최소 필요 피로도 - 소모 피로도 구하기
+  for (let i = 0; i < dungeons.length; i++) {
+    let temp = dungeons[i][0] - dungeons[i][1];
+    dungeons[i].push(temp);
+  }
+
+  // 최소 피료 피로도 - 소모 피로도가 큰 순으로 정렬 (2차원 배열 정렬)
+  dungeons.sort((a, b) => b[2] - a[2]);
+
+  // 던전 탐험하기
+  for (let i = 0; i < dungeons.length; i++) {
+    let need = dungeons[i][0]; // 최소 필요 피로도
+    let use = dungeons[i][1]; // 소모 피로도
+
+    // 현재 피로도가 최소 필요 피로도보다 크거나 같으면 던전 탐험
+    if (k >= need) {
+      // 현재 피로도 - 소모 피로도
+      k = k - use;
+      count++;
+    }
+  }
+
+  return count;
 }
+
+solution(80, [
+  [80, 20],
+  [50, 40],
+  [30, 10],
+]);
