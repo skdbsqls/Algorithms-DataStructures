@@ -19,6 +19,7 @@ XX게임에는 피로도 시스템(0 이상의 정수로 표현합니다)이 있
 - 서로 다른 던전의 ["최소 필요 피로도", "소모 피로도"]가 서로 같을 수 있습니다.
 */
 
+// 풀이 1 (순열)
 // 던전을 탐험할 수 있는 모든 방법 찾기
 const getPermutations = function (arr, selectNumber) {
   const results = [];
@@ -59,5 +60,48 @@ function solution(k, dungeons) {
     }
     answer = Math.max(count, answer);
   }
+  return answer;
+}
+
+// 풀이 2 (DFS)
+/* let answer = 0;
+
+function solution(k, dungeons) {
+  let visited = new Array(dungeons.length).fill(0);
+  dfs(dungeons, visited, k, 0);
+
+  return answer;
+}
+
+function dfs(dungeons, visited, k, cnt) {
+  answer = Math.max(answer, cnt);
+
+  for (let i = 0; i < dungeons.length; i++) {
+    if (k >= dungeons[i][0] && !visited[i]) {
+      visited[i] = 1;
+      dfs(dungeons, visited, k - dungeons[i][1], cnt + 1);
+      visited[i] = 0;
+    }
+  }
+} */
+
+// 풀이 2 (코드 정리)
+function solution(k, dungeons) {
+  let visited = new Array(dungeons.length).fill(0);
+  let answer = 0;
+
+  function dfs(k, cnt) {
+    answer = Math.max(answer, cnt);
+
+    for (let i = 0; i < dungeons.length; i++) {
+      if (k >= dungeons[i][0] && !visited[i]) {
+        visited[i] = 1;
+        dfs(k - dungeons[i][1], cnt + 1);
+        visited[i] = 0;
+      }
+    }
+  }
+
+  dfs(k, 0);
   return answer;
 }
