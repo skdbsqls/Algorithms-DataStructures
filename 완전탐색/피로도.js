@@ -19,35 +19,45 @@ XX게임에는 피로도 시스템(0 이상의 정수로 표현합니다)이 있
 - 서로 다른 던전의 ["최소 필요 피로도", "소모 피로도"]가 서로 같을 수 있습니다.
 */
 
+// 던전을 탐험할 수 있는 모든 방법 찾기
+const getPermutations = function (arr, selectNumber) {
+  const results = [];
+  if (selectNumber === 1) return arr.map((value) => [value]);
+
+  arr.forEach((fixed, index, origin) => {
+    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
+    const permutations = getPermutations(rest, selectNumber - 1);
+    const attached = permutations.map((permutation) => [fixed, ...permutation]);
+
+    results.push(...attached);
+  });
+  return results;
+};
+
 function solution(k, dungeons) {
-  let count = 0;
-  // 최소 필요 피로도 - 소모 피로도 구하기
-  for (let i = 0; i < dungeons.length; i++) {
-    let temp = dungeons[i][0] - dungeons[i][1];
-    dungeons[i].push(temp);
-  }
+  const dungeonsLength = dungeons.length;
+  const results = getPermutations(dungeons, dungeonsLength);
 
-  // 최소 피료 피로도 - 소모 피로도가 큰 순으로 정렬 (2차원 배열 정렬)
-  dungeons.sort((a, b) => b[2] - a[2]);
+  // 모든 방법을 시도하며 retrun 값 구하기
+  let anwsers = [];
+  for (let i = 0; i < results.length; i++) {
+    // 현재 피로도 및 던전 탐험 횟수 초기화
+    let resetK = k;
+    let count = 0;
+    for (let j = 0; j < results[i].length; j++) {
+      let need = results[i][j][0]; // 최소 필요 피로도
+      let use = results[i][j][1]; // 소모 피로도
 
-  // 던전 탐험하기
-  for (let i = 0; i < dungeons.length; i++) {
-    let need = dungeons[i][0]; // 최소 필요 피로도
-    let use = dungeons[i][1]; // 소모 피로도
+      // 현재 피로도가 최소 필요 피로도보다 크거나 같으면 던전 탐험
+      if (resetK >= need) {
+        // 현재 피로도 - 소모 피로도
+        resetK = resetK - use;
+      } else break;
 
-    // 현재 피로도가 최소 필요 피로도보다 크거나 같으면 던전 탐험
-    if (k >= need) {
-      // 현재 피로도 - 소모 피로도
-      k = k - use;
+      // 탐험을 한 경우 count +1
       count++;
     }
+    anwsers.push(count);
   }
-
-  return count;
+  return Math.max(...anwsers);
 }
-
-solution(80, [
-  [80, 20],
-  [50, 40],
-  [30, 10],
-]);
