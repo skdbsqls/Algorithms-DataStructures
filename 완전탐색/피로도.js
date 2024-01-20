@@ -39,7 +39,7 @@ function solution(k, dungeons) {
   const results = getPermutations(dungeons, dungeonsLength);
 
   // 모든 방법을 시도하며 retrun 값 구하기
-  let anwsers = [];
+  let answer = 0;
   for (let i = 0; i < results.length; i++) {
     // 현재 피로도 및 던전 탐험 횟수 초기화
     let resetK = k;
@@ -57,7 +57,7 @@ function solution(k, dungeons) {
       // 탐험을 한 경우 count +1
       count++;
     }
-    anwsers.push(count);
+    answer = Math.max(count, answer);
   }
-  return Math.max(...anwsers);
+  return answer;
 }
