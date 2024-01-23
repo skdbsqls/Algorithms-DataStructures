@@ -25,9 +25,66 @@ const graph = new Array(N + 1); // 인덱스는 0부터, node는 1부터 시작
 for (let i = 0; i < graph.length; i++) {
   graph[i] = [];
 }
-// 정점과 간선으로 연결된 정점을 배열에 담아준다
+// 한 정점과 간선으로 연결된 정점들을 배열에 담아준다
 for (let i = 0; i < M; i++) {
   let [from, to] = input[i + 1].split(" ").map(Number);
   graph[from].push(to); // 양방향
   graph[to].push(from); // 양방향
 }
+
+// DFS로 탐색하기
+const DFS = (graph, V) => {
+  let visited = []; // 방문한 노드
+  let willVisit = []; // 방문할 노드
+
+  // 시작 노드 스택에 삽입
+  willVisit.push(V);
+
+  // 더 이상 방문할 노드가 없으면 종료
+  while (willVisit.length !== 0) {
+    // 노드 선택 : 스택 구조 => pop()
+    let node = willVisit.pop();
+
+    // 방문 여부 확인
+    if (!visited.includes(node)) {
+      // 방문하지 않았으면 헤당 노드 방문 후 방문 처리
+      visited.push(node);
+
+      // 인접한 노드 (방문할 노드)
+      let nodes = graph[node];
+      willVisit = [...willVisit, ...nodes.sort((a, b) => b - a)]; // 스택 구조 => 내림차순
+    }
+  }
+
+  return visited;
+};
+
+// BFS로 탐색하기
+const BFS = (graph, V) => {
+  let visited = []; // 방문한 노드
+  let willVisit = []; // 방문할 노드
+
+  // 시작 노드 큐에 삽입
+  willVisit.push(V);
+
+  // 더 이상 방문할 노드가 없으면 종료
+  while (willVisit.length !== 0) {
+    // 노드 선택 : 큐 구조 => shift()
+    let node = willVisit.shift();
+
+    // 방문 여부 확인
+    if (!visited.includes(node)) {
+      // 방문하지 않았으면 헤당 노드 방문 후 방문 처리
+      visited.push(node);
+
+      // 인접한 노드 (방문할 노드)
+      let nodes = graph[node];
+      willVisit = [...willVisit, ...nodes.sort((a, b) => a - b)]; // 큐 구조 => 오름차순
+    }
+  }
+  return visited;
+};
+
+// 정답
+console.log(BFS(graph, V).join(" "));
+console.log(DFS(graph, V).join(" "));
