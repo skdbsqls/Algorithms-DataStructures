@@ -32,8 +32,8 @@ for (let i = 0; i < M; i++) {
   graph[to].push(from); // 양방향
 }
 
-// DFS로 탐색하기
-const DFS = (graph, V) => {
+// DFS로 탐색하기 (1)스택
+const DFS1 = (graph, V) => {
   let visited = []; // 방문한 노드
   let willVisit = []; // 방문할 노드
 
@@ -58,6 +58,29 @@ const DFS = (graph, V) => {
 
   return visited;
 };
+
+// DFS로 탐색하기 (2)재귀 함수
+graph.forEach((e) => e.sort((a, b) => a - b)); // 오름차순
+
+let dfs = [];
+let visited = new Array(N + 1).fill(false); // 방문 여부
+
+const DFS2 = (V) => {
+  // 노드 방문 처리
+  visited[V] = true;
+  dfs.push(V);
+
+  for (let i = 0; i < graph[V].length; i++) {
+    let next = graph[V][i];
+
+    if (visited[next] === false) {
+      DFS2(next);
+    }
+  }
+};
+
+DFS2(V);
+console.log(dfs.join(" "));
 
 // BFS로 탐색하기
 const BFS = (graph, V) => {
@@ -86,5 +109,5 @@ const BFS = (graph, V) => {
 };
 
 // 정답
+console.log(DFS1(graph, V).join(" "));
 console.log(BFS(graph, V).join(" "));
-console.log(DFS(graph, V).join(" "));
