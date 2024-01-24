@@ -10,6 +10,7 @@
 - word는 알파벳 대문자 'A', 'E', 'I', 'O', 'U'로만 이루어져 있습니다.
 */
 
+// 풀이 1
 function solution(word) {
   let vowels = ["A", "E", "I", "O", "U"];
   let dictionary = [];
@@ -29,4 +30,28 @@ function solution(word) {
   return dictionary.indexOf(word);
 }
 
-solution("A");
+// 풀이 2
+function solution(word) {
+  let count = 0;
+  let flag = false;
+  let vowels = ["A", "E", "I", "O", "U"];
+
+  const dfs = (cur) => {
+    if (cur.length > 5 || flag) return;
+
+    if (cur === word) {
+      flag = true;
+      return;
+    }
+
+    count++;
+
+    for (let i = 0; i < vowels.length; i++) {
+      dfs(cur + vowels[i]);
+    }
+  };
+
+  dfs("");
+
+  return count;
+}
