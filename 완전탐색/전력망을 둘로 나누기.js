@@ -14,3 +14,42 @@ n개의 송전탑이 전선을 통해 하나의 트리 형태로 연결되어 �
 - 1 ≤ v1 < v2 ≤ n 입니다.
 - 전력망 네트워크가 하나의 트리 형태가 아닌 경우는 입력으로 주어지지 않습니다.
 */
+
+function solution(n, wires) {
+  var answer = Number.MAX_SAFE_INTEGER;
+  let tree = Array.from(Array(n + 1), () => []);
+
+  wires.map((element) => {
+    let [a, b] = element;
+
+    tree[a].push(b);
+    tree[b].push(a);
+  });
+
+  function searchTree(root, exceptNum) {
+    let count = 0;
+    let visit = [];
+    let queue = [root];
+
+    visit[root] = true;
+
+    while (queue.length) {
+      let index = queue.pop();
+      tree[index].forEach((element) => {
+        if (element !== exceptNum && visit[element] !== true) {
+          visit[element] = true;
+          queue.push(element);
+        }
+      });
+      count++;
+    }
+
+    return count;
+  }
+
+  wires.forEach((element) => {
+    let [a, b] = element;
+    answer = Math.min(answer, Math.abs(searchTree(a, b) - searchTree(b, a)));
+  });
+  return answer;
+}
