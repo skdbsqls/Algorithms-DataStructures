@@ -16,28 +16,28 @@ n개의 송전탑이 전선을 통해 하나의 트리 형태로 연결되어 �
 */
 
 function solution(n, wires) {
-  var answer = Number.MAX_SAFE_INTEGER;
-  let tree = Array.from(Array(n + 1), () => []);
+  let anwser = Infinity;
 
-  wires.map((element) => {
-    let [a, b] = element;
+  const graph = Array.from(Array(n + 1), () => []);
+  for (const wire of wires) {
+    let [from, to] = wire;
 
-    tree[a].push(b);
-    tree[b].push(a);
-  });
+    graph[from].push(to);
+    graph[to].push(from);
+  }
 
-  function searchTree(root, exceptNum) {
+  const bfs = (start, except) => {
     let count = 0;
-    let visit = [];
-    let queue = [root];
+    let visited = Array.from(Array(n + 1), () => false);
+    let queue = [start];
 
-    visit[root] = true;
+    visited[start] = true;
 
     while (queue.length) {
-      let index = queue.pop();
-      tree[index].forEach((element) => {
-        if (element !== exceptNum && visit[element] !== true) {
-          visit[element] = true;
+      let index = queue.shift();
+      graph[index].forEach((element) => {
+        if (element !== except && visited[element] === false) {
+          visited[element] = true;
           queue.push(element);
         }
       });
@@ -45,11 +45,23 @@ function solution(n, wires) {
     }
 
     return count;
-  }
+  };
 
   wires.forEach((element) => {
-    let [a, b] = element;
-    answer = Math.min(answer, Math.abs(searchTree(a, b) - searchTree(b, a)));
+    let [from, to] = element;
+    anwser = Math.min(anwser, Math.abs(bfs(from, to) - bfs(to, from)));
   });
-  return answer;
+
+  return anwser;
 }
+
+solution(9, [
+  [1, 3],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [4, 6],
+  [4, 7],
+  [7, 8],
+  [7, 9],
+]);
