@@ -16,7 +16,7 @@ n개의 송전탑이 전선을 통해 하나의 트리 형태로 연결되어 �
 */
 
 function solution(n, wires) {
-  let anwser = Infinity;
+  let answer = Infinity;
 
   const graph = Array.from(Array(n + 1), () => []);
   for (const wire of wires) {
@@ -49,10 +49,10 @@ function solution(n, wires) {
 
   wires.forEach((element) => {
     let [from, to] = element;
-    anwser = Math.min(anwser, Math.abs(bfs(from, to) - bfs(to, from)));
+    answer = Math.min(answer, Math.abs(bfs(from, to) - bfs(to, from)));
   });
 
-  return anwser;
+  return answer;
 }
 
 solution(9, [
