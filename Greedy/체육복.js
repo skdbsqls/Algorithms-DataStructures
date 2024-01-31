@@ -19,7 +19,7 @@
 
 function solution(n, lost, reserve) {
   // 모든 학생이 체육복을 가지고 있음 (+1)
-  let students = new Array(n + 1).fill(1);
+  let students = new Array(n + 1).fill(1); // n + 1? 학생은 1부터, 인덱스는 0부터
 
   // 어떤 학생은 체육복을 도난 당함 (-1)
   lost.forEach((lost) => students[lost]--);
@@ -34,19 +34,19 @@ function solution(n, lost, reserve) {
       // 바로 앞의 학생이 체육복 여분이 있다면(2)
       if (students[index - 1] === 2) {
         // 바로 앞 학생에게 체육복 빌리기
-        students[index - 1]--;
-        students[index]++;
+        students[index - 1]--; // 바로 앞 학생 (-1)
+        students[index]++; // 어떤 학생 (+1)
       }
       // 바로 앞의 학생에게 빌리지 못 했고, 바로 뒤의 학생이 여분이 있다면(2)
       else if (students[index + 1] === 2) {
         // 바로 뒤 학생에게 체육복 빌리기
-        students[index + 1]--;
-        students[index]++;
+        students[index + 1]--; // 바로 뒤 학생 (-1)
+        students[index]++; // 어떤 학생 (+1)
       }
     }
   });
 
-  // 체육복이 없는 학생의 수
+  // 체육복이 없는 학생(0)의 수
   let count = 0;
   students.forEach((student) => {
     if (student === 0) {
@@ -54,6 +54,6 @@ function solution(n, lost, reserve) {
     }
   });
 
-  // 정답 (전체 학생 - 체육복이 없는 학생)
+  // 전체 학생 - 체육복이 없는 학생
   return n - count;
 }
