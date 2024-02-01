@@ -16,23 +16,26 @@ function solution(number, k) {
   let numbers = number
     .split("")
     .map((num) => Number(num))
-    .reverse();
-  let answer = [];
+    .reverse(); // shift()는 O(N), pop()은 O(1)이기 때문에 reverse 해줌
+  let answer = []; // 정답 배열
 
   while (numbers.length) {
-    const first = numbers.pop();
+    const first = numbers.pop(); // 첫 번째 숫자 꺼내기
     if (!answer.length) {
-      answer.push(first);
+      // answer에 요소가 없으면
+      answer.push(first); // 바로 push
     } else {
+      // 있으면
       while (k > 0 && answer[answer.length - 1] < first) {
-        answer.pop();
-        k -= 1;
+        // k가 0보다 크고, answer의 마지막 요소가 첫 번째 요소보다 작으면
+        answer.pop(); // answer 요소를 꺼내줌
+        k -= 1; // 삭제되면 k는 -1
       }
-      answer.push(first);
+      answer.push(first); // 나머지 요소는 마저 넣어줌
     }
   }
 
+  // answer 배열에 마지막 요소보다 더 큰 수가 나오지 않을 경우 k가 끝까지 소모되지 않을 수 있음
+  // 그럼 남은 요소가 모두 answer에 들어가기 때문에 k만큼 뒤에서 지워줘야 함 ex)100010000
   return answer.slice(0, answer.length - k).join("");
 }
-
-solution("100010000", 4);
