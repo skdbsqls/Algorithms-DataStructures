@@ -12,24 +12,27 @@ number에서 k 개의 수를 제거했을 때 만들 수 있는 수 중 가장 �
 - k는 1 이상 number의 자릿수 미만인 자연수입니다.
 */
 
-const deleteValue = (numbers) => {
-  for (let i = 0; i < numbers.length; i++) {
-    if (numbers[i] < numbers[i + 1]) {
-      numbers.splice(i, 1);
-      return;
+function solution(number, k) {
+  let numbers = number
+    .split("")
+    .map((num) => Number(num))
+    .reverse();
+  let answer = [];
+
+  while (numbers.length) {
+    const first = numbers.pop();
+    if (!answer.length) {
+      answer.push(first);
+    } else {
+      while (k > 0 && answer[answer.length - 1] < first) {
+        answer.pop();
+        k -= 1;
+      }
+      answer.push(first);
     }
   }
-};
 
-function solution(number, k) {
-  let answer = [];
-  let numbers = number.split("").map((num) => Number(num));
-  const numLength = numbers.length;
-
-  while (numbers.length > numLength - k) {
-    deleteValue(numbers);
-  }
-  return numbers.join("");
+  return answer.slice(0, answer.length - k).join("");
 }
 
-solution("1231234", 3);
+solution("100010000", 4);
