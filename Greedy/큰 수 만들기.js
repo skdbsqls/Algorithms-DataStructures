@@ -12,6 +12,7 @@ number에서 k 개의 수를 제거했을 때 만들 수 있는 수 중 가장 �
 - k는 1 이상 number의 자릿수 미만인 자연수입니다.
 */
 
+// 풀이 1
 function solution(number, k) {
   let numbers = number
     .split("")
