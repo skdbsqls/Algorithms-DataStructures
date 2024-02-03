@@ -12,7 +12,6 @@ number에서 k 개의 수를 제거했을 때 만들 수 있는 수 중 가장 �
 - k는 1 이상 number의 자릿수 미만인 자연수입니다.
 */
 
-// 풀이 1
 function solution(number, k) {
   let numbers = number
     .split("")
@@ -39,4 +38,20 @@ function solution(number, k) {
   // answer 배열에 마지막 요소보다 더 큰 수가 나오지 않을 경우 k가 끝까지 소모되지 않을 수 있음
   // 그럼 남은 요소가 모두 answer에 들어가기 때문에 k만큼 뒤에서 지워줘야 함 ex)100010000
   return answer.slice(0, answer.length - k).join("");
+}
+
+function solution(number, k) {
+  let stack = [];
+
+  for (let i = 0; i < number.length; i++) {
+    const element = numbeㅋr[i];
+    while (k > 0 && stack[stack.length - 1] < element) {
+      stack.pop();
+      k--;
+    }
+    stack.push(element);
+  }
+
+  stack.splice(stack.length - k, k);
+  return stack.join("");
 }
