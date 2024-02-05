@@ -19,6 +19,21 @@
 */
 
 function solution(people, limit) {
-  var answer = 0;
-  return answer;
+  // 오름차순 정리
+  people.sort((a, b) => a - b);
+
+  let count = 0; // 구명보트 개수
+
+  while (people.length > 0) {
+    let last = people.pop(); // 가장 무거운 사람 빼기
+
+    // 가장 무거운 사람 + 가장 가벼운 사람 <= limit면
+    if (last + people[0] <= limit) {
+      people.shift(); // 가장 가벼운 사람도 빼기
+    }
+
+    count++; // count + 1
+  }
+
+  return count;
 }
