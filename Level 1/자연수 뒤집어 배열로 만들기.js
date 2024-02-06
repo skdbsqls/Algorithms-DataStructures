@@ -8,6 +8,9 @@
 */
 
 function solution(n) {
-  var answer = [];
-  return answer;
+  return n
+    .toString() // 문자열로 변환
+    .split("") // 배열로 변환
+    .reverse() // 배열 뒤집기
+    .map((e) => Number(e)); // 배열의 요소를 숫자로 변환
 }
