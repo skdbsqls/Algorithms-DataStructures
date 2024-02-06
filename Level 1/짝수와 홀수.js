@@ -7,8 +7,15 @@
 - 0은 짝수입니다.
 */
 
+// 풀이 1
 function solution(num) {
   if (num % 2 === 0) {
     return "Even";
   } else return "Odd";
+}
+
+// 풀이 2
+function solution(num) {
+  // 0은 false, 삼항연산자 활용
+  return num % 2 ? "Odd" : "Even";
 }
