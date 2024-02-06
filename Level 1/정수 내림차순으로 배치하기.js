@@ -9,6 +9,12 @@ n의 각 자릿수를 큰것부터 작은 순으로 정렬한 새로운 정수�
 */
 
 function solution(n) {
-  var answer = 0;
-  return answer;
+  return Number(
+    // 숫자로 변환
+    n
+      .toString() // 문자열로 변환
+      .split("") // 배열로 변환
+      .sort((a, b) => b - a) // 내림차순
+      .join("") // 문자열로 변환
+  );
 }
