@@ -8,6 +8,9 @@
 */
 
 function solution(n) {
-  var answer = 0;
-  return answer;
+  return n
+    .toString() // 문자열로 변환
+    .split("") // 배열로 변환
+    .map((v) => Number(v)) // 배열의 각 요소를 다시 숫자로 변환
+    .reduce((a, b) => a + b); // 각 자릿수의 합
 }
