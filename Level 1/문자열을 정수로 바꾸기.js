@@ -12,3 +12,7 @@
 function solution(s) {
   return Number(s);
 }
+
+function solution(s) {
+  return s / 1; // 자바스크립트의 암묵적 형변환 이용
+}
