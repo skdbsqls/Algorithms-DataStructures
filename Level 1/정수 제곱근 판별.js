@@ -9,12 +9,17 @@ n이 양의 정수 x의 제곱이라면 x+1의 제곱을 리턴하고, n이 양�
 
 function solution(n) {
   let answer = 0;
-  let sqrt = Math.sqrt(n);
+  let sqrt = Math.sqrt(n); // Math.sqrt() 함수는 숫자의 제곱근을 반환
 
-  if (sqrt % 1 !== 0) {
-    answer = -1;
-  } else {
+  // 제곱근인 경우
+  if (sqrt % 1 === 0) {
+    // Math.pow(base, exponent) 함수는 base에 exponent를 제곱한 값을 반환
+    // base가 음수이고 exponent가 정수가 아닌 경우에는 NaN을 반환
     answer = Math.pow(sqrt + 1, 2);
+  }
+  // 제곱근이 아닌 경우
+  else {
+    answer = -1;
   }
   return answer;
 }
