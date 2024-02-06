@@ -7,12 +7,18 @@
 - arr의 원소는 -10,000 이상 10,000 이하인 정수입니다.
 */
 
+// 풀이 1
 function solution(arr) {
-  let answer = 0;
+  let sum = 0;
 
   for (let i = 0; i < arr.length; i++) {
-    answer += arr[i];
+    sum += arr[i];
   }
 
-  return answer / arr.length;
+  return sum / arr.length;
+}
+
+// 풀이 2 (reduce 활용)
+function solution(arr) {
+  return arr.reduce((a, b) => a + b) / arr.length;
 }
