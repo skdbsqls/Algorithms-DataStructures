@@ -7,6 +7,14 @@
 */
 
 function solution(n) {
-  var answer = 0;
+  let answer = 0;
+
+  for (let i = 1; i <= n; i++) {
+    // 약수 : 나머지가 0인 것
+    if (n % i === 0) {
+      answer += i;
+    }
+  }
+
   return answer;
 }
