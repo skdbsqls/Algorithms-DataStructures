@@ -10,6 +10,5 @@
 */
 
 function solution(s) {
-  var answer = 0;
-  return answer;
+  return Number(s);
 }
