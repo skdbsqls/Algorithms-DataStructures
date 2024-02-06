@@ -8,6 +8,7 @@
 - n은 1000 이하인 자연수입니다.
 */
 
+// 풀이 1
 function solution(x, n) {
   let answer = [];
 
@@ -16,4 +17,11 @@ function solution(x, n) {
   }
 
   return answer;
+}
+
+// 풀이 2
+function solution(x, n) {
+  return Array(n)
+    .fill(x)
+    .map((v, i) => (i + 1) * v);
 }
