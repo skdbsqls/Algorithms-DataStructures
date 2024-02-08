@@ -8,6 +8,13 @@
 */
 
 function solution(phone_number) {
-  var answer = "";
-  return answer;
+  const arr = phone_number.split("");
+
+  for (let i = 0; i < arr.length - 4; i++) {
+    arr[i] = "*";
+  }
+
+  return arr.join("");
 }
+
+solution("01032487312");
