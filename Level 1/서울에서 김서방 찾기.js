@@ -10,6 +10,9 @@ seoul에 "Kim"은 오직 한 번만 나타나며 잘못된 값이 입력되는 �
 */
 
 function solution(seoul) {
-  var answer = "";
-  return answer;
+  for (let i = 0; i < seoul.length; i++) {
+    if (seoul[i] === "Kim") {
+      return `김서방은 ${i}에 있다`;
+    }
+  }
 }
