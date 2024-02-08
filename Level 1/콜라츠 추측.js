@@ -16,6 +16,17 @@
 */
 
 function solution(num) {
-  var answer = 0;
-  return answer;
+  let count = 0; // 횟수
+
+  // 500회 미만일 경우
+  while (count < 500) {
+    if (num === 1) return count; // num = 1이 되는 순간 count 반환
+
+    // num = 1이 아닌 경우 작업 반복
+    num = num % 2 === 0 ? num / 2 : num * 3 + 1;
+    count++; // count + 1
+  }
+
+  // 500회 이상일 경우 -1
+  return -1;
 }
