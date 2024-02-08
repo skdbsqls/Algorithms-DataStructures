@@ -11,6 +11,12 @@
 */
 
 function solution(arr) {
-  var answer = [];
-  return answer;
+  if (arr.length === 1) {
+    return (arr = [-1]); // 배열의 요소가 하나일 떼
+  } else {
+    let min = Math.min(...arr); // 배열에서 최솟값 찾기
+    arr.splice(arr.indexOf(min), 1); // 최솟값의 인덱스를 찾아서 해당 요소 삭제
+  }
+
+  return arr;
 }
