@@ -7,6 +7,7 @@
 - phone_number는 길이 4 이상, 20이하인 문자열입니다.
 */
 
+// 풀이 1
 function solution(phone_number) {
   const arr = phone_number.split("");
 
@@ -17,4 +18,7 @@ function solution(phone_number) {
   return arr.join("");
 }
 
-solution("01032487312");
+// 풀이 2
+function solution(phone_number) {
+  return "*".repeat(phone_number.length - 4) + phone_number.slice(-4);
+}
