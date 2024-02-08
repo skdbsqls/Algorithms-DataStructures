@@ -9,6 +9,7 @@
 - a와 b의 대소관계는 정해져있지 않습니다.
 */
 
+// 풀이 1
 function solution(a, b) {
   // 정수 사이의 합 구하기
   const sum = (a, b) => {
@@ -27,4 +28,13 @@ function solution(a, b) {
 
   // a가 b보다 큰 경우
   if (a > b) return sum(b, a);
+}
+
+// 풀이 2
+function solution(a, b) {
+  let sum = 0;
+  for (let i = Math.min(a, b); i <= Math.max(a, b); i++) {
+    sum += i;
+  }
+  return sum;
 }
