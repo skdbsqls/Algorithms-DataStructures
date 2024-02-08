@@ -15,6 +15,7 @@
 - 입력된 수, num은 1 이상 8,000,000 미만인 정수입니다.
 */
 
+// 풀이 1
 function solution(num) {
   let count = 0; // 횟수
 
@@ -29,4 +30,22 @@ function solution(num) {
 
   // 500회 이상일 경우 -1
   return -1;
+}
+
+// 풀이 2
+function solution(num) {
+  // 1로 만들면서 count 구하기
+  const collatz = (num, count) => {
+    // 재귀 종료 조건 : num = 1
+    if (num === 1) return count;
+
+    // 짝수인지 홀수인지 판별하여 작업
+    const makeNum = num % 2 === 0 ? num / 2 : num * 3 + 1;
+    return collatz(makeNum, count + 1); // 작업 반복 (count + 1)
+  };
+
+  const count = collatz(num, 0); // count는 0부터 시작
+  const anwser = count < 500 ? count : -1; // 정답
+
+  return anwser;
 }
