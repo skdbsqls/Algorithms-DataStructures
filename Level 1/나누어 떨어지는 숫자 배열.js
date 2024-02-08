@@ -27,3 +27,10 @@ function solution(arr, divisor) {
 
   return anwser;
 }
+
+// 풀이 2 (filter 활용)
+function solution(arr, divisor) {
+  const anwser = arr.filter((v) => v % divisor === 0);
+
+  return anwser.length ? anwser.sort((a, b) => a - b) : [-1];
+}
