@@ -10,6 +10,13 @@ numbers에서 찾을 수 없는 0부터 9까지의 숫자를 모두 찾아 더�
 */
 
 function solution(numbers) {
-  var answer = -1;
-  return answer;
+  let sum = 0;
+
+  for (let i = 0; i <= 9; i++) {
+    if (!numbers.includes(i)) {
+      sum += i;
+    }
+  }
+
+  return sum;
 }
