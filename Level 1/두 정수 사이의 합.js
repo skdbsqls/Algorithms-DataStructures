@@ -10,6 +10,21 @@
 */
 
 function solution(a, b) {
-  var answer = 0;
-  return answer;
+  // 정수 사이의 합 구하기
+  const sum = (a, b) => {
+    let sum = 0;
+    for (let i = a; i <= b; i++) {
+      sum += i;
+    }
+    return sum;
+  };
+
+  // a와 b가 같은 경우
+  if (a === b) return a;
+
+  // a가 b보다 작은 경우
+  if (a < b) return sum(a, b);
+
+  // a가 b보다 큰 경우
+  if (a > b) return sum(b, a);
 }
