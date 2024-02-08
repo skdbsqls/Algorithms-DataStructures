@@ -9,10 +9,18 @@ seoul에 "Kim"은 오직 한 번만 나타나며 잘못된 값이 입력되는 �
 - "Kim"은 반드시 seoul 안에 포함되어 있습니다.
 */
 
+// 풀이 1
 function solution(seoul) {
   for (let i = 0; i < seoul.length; i++) {
     if (seoul[i] === "Kim") {
       return `김서방은 ${i}에 있다`;
     }
   }
+}
+
+// 풀이 2 (indexOf 활용)
+function solution(seoul) {
+  const index = seoul.indexOf("Kim");
+
+  return `김서방은 ${index}에 있다`;
 }
