@@ -10,6 +10,7 @@
 - 인덱스 i, j에 대해 i ≠ j이면 arr[i] ≠ arr[j] 입니다.
 */
 
+// 풀이 1
 function solution(arr) {
   if (arr.length === 1) {
     return (arr = [-1]); // 배열의 요소가 하나일 떼
@@ -19,4 +20,10 @@ function solution(arr) {
   }
 
   return arr;
+}
+
+// 풀이 2
+function solution(arr) {
+  let min = Math.min(...arr); // 최솟값 찾기
+  return arr.length === 1 ? [-1] : arr.filter((v) => v !== min); // filter를 활용하여 최솟값이 아닌 요소만 남기기
 }
