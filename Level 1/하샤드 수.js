@@ -9,6 +9,17 @@
 */
 
 function solution(x) {
-  var answer = true;
-  return answer;
+  // 자릿수의 합 구하기
+  const arr = x
+    .toString()
+    .split("")
+    .map((e) => Number(e));
+
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+
+  // 하샤드 수인지 검사하기
+  return x % sum === 0 ? true : false;
 }
