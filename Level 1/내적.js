@@ -10,6 +10,7 @@ a와 b의 내적을 return 하도록 solution 함수를 완성해주세요.
 - a, b의 모든 수는 -1,000 이상 1,000 이하입니다.
 */
 
+// 풀이 1
 function solution(a, b) {
   let sum = 0;
   for (let i = 0; i < a.length; i++) {
@@ -18,4 +19,7 @@ function solution(a, b) {
   return sum;
 }
 
-solution([1, 2, 3, 4], [-3, -1, 0, 2]);
+// 풀이 2
+function solution(a, b) {
+  return (answer = a.reduce((acc, cur, idx) => (acc += cur * b[idx]), 0));
+}
