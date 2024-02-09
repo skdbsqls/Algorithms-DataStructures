@@ -18,9 +18,8 @@ function solution(left, right) {
     }
 
     // 약수의 개수에 따라 더하고 빼기
-    if (count % 2 === 0) {
-      answer += i;
-    } else answer -= i;
+    if (count % 2 === 0) answer += i;
+    else answer -= i;
   }
 
   return answer;
