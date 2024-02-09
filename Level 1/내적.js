@@ -11,6 +11,11 @@ a와 b의 내적을 return 하도록 solution 함수를 완성해주세요.
 */
 
 function solution(a, b) {
-  var answer = 1234567890;
-  return answer;
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    sum += a[i] * b[i];
+  }
+  return sum;
 }
+
+solution([1, 2, 3, 4], [-3, -1, 0, 2]);
