@@ -8,6 +8,20 @@ left부터 right까지의 모든 수들 중에서, 약수의 개수가 짝수인
 */
 
 function solution(left, right) {
-  var answer = 0;
+  let answer = 0;
+
+  for (let i = left; i <= right; i++) {
+    // 약수의 개수 구하기
+    let count = 0;
+    for (let j = 1; j <= i; j++) {
+      if (i % j === 0) count++;
+    }
+
+    // 약수의 개수에 따라 더하고 빼기
+    if (count % 2 === 0) {
+      answer += i;
+    } else answer -= i;
+  }
+
   return answer;
 }
