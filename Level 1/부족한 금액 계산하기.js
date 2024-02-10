@@ -14,7 +14,14 @@
 */
 
 function solution(price, money, count) {
-  var answer = -1;
+  let sum = 0; // 내야할 금액
 
-  return answer;
+  // 내야할 금액 구하기
+  for (let i = 1; i <= count; i++) {
+    sum += price * i;
+  }
+
+  // 부족한 금액이 있으면 내야할 금액 - 가지고 있는 금액
+  if (sum - money > 0) return sum - money;
+  else return 0; // 부족한 금액이 없으면 0
 }
