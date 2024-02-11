@@ -7,6 +7,7 @@
 - 행렬 arr1, arr2의 행과 열의 길이는 500을 넘지 않습니다.
 */
 
+// 풀이 1
 function solution(arr1, arr2) {
   let answer = [];
 
@@ -18,4 +19,9 @@ function solution(arr1, arr2) {
     answer.push(sum);
   }
   return answer;
+}
+
+// 풀이 2
+function solution(arr1, arr2) {
+  return arr1.map((arr, index) => arr.map((v, i) => v + arr2[index][i]));
 }
