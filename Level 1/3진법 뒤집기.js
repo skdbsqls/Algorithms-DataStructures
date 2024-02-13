@@ -21,3 +21,13 @@ function solution(n) {
 
   return base10.reduce((acc, cur) => acc + cur);
 }
+
+function solution(n) {
+  let base3 = [];
+  while (n > 0) {
+    base3.unshift(n % 3); // unshift 배열의 맨 앞에 요소 추가
+    n = Math.floor(n / 3);
+  }
+
+  return base3.reduce((acc, cur, idx) => acc + cur * 3 ** idx, 0);
+}
