@@ -20,11 +20,11 @@ function solution(d, budget) {
   let count = 0; // 지원받는 부서 개수
 
   for (let i = 0; i < d.length; i++) {
-    // 다음 부서까지 지원할 예산이 있을 경우
+    // 현재 부서까지 지원할 예산이 있을 경우
     if (budget - d[i] >= 0) {
       budget = budget - d[i]; // 지원하고
       count++; // 개수 + 1
-    } else break; // 다음 부서까지 지원할 예산이 안 될 경우 break
+    } else break; // 현재 부서까지 지원할 예산이 안 될 경우 break
   }
 
   return count;
