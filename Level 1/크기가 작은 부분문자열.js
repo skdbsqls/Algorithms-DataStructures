@@ -30,3 +30,15 @@ function solution(t, p) {
 
   return count;
 }
+
+// 간단하게
+function solution(t, p) {
+  let count = 0;
+
+  for (let i = 0; i <= t.length - p.length; i++) {
+    let part = t.slice(i, i + p.length);
+    if (p >= part) count++;
+  }
+
+  return count;
+}
