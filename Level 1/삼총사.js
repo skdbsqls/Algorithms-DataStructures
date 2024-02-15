@@ -41,3 +41,25 @@ function solution(number) {
 
   return count;
 }
+
+// 풀이 2
+function solution(number) {
+  let count = 0; // 삼총사의 개수
+
+  const combination = (current, start) => {
+    // 재귀 종료 조건 (배열의 길이가 3이 되었을 때)
+    if (current.length === 3) {
+      // 합이 0이면 삼총사의 개수 + 1
+      if (current.reduce((acc, cur) => acc + cur) === 0) count++;
+      return;
+    }
+
+    // number 배열을 돌면서 배열의 길이가 3인 조합을 찾음
+    for (let i = start; i < number.length; i++) {
+      combination([...current, number[i]], i + 1);
+    }
+  };
+
+  combination([], 0);
+  return count;
+}
