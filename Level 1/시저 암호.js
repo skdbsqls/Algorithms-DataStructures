@@ -24,7 +24,7 @@ function solution(s, n) {
     // 대문자일 때
     if (upper.includes(s[i])) {
       let index = upper.indexOf(s[i]) + n; // 인덱스 구하기
-      index >= upper.length // 인덱스가 대문자 배열의 길이보다 커지면 ex) Z에서 1만큼 밀리는 경우 A
+      index >= upper.length // 인덱스가 대문자 배열의 길이보다 크거나 같으면 ex) Z에서 1만큼 밀리는 경우 A
         ? (answer += upper[index - upper.length]) // 인덱스는 앞서 구한 인덱스 값에서 upper.length만큼을 빼서 정확한 인덱스를 찾아줌
         : (answer += upper[index]);
     }
@@ -36,5 +36,27 @@ function solution(s, n) {
         : (answer += lower[index]);
     }
   }
+  return answer;
+}
+
+// 간단하게
+function solution(s, n) {
+  let answer = "";
+  let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let lower = "abcdefghijklmnopqrstuvwxyz";
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === " ") {
+      answer += " ";
+      continue;
+    }
+
+    let arr = upper.includes(s[i]) ? upper : lower; // 대소문자 판별
+    let index = arr.indexOf(s[i]) + n; // 인덱스 구하기
+
+    if (index >= arr.length) index -= arr.length;
+    answer += arr[index];
+  }
+
   return answer;
 }
