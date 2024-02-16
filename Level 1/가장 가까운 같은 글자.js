@@ -19,26 +19,38 @@
 - s은 영어 소문자로만 이루어져 있습니다.
 */
 
+// 풀이 1
+function solution(s) {
+  let answer = [];
+
+  for (let i = 0; i < s.length; i++) {
+    let count = -1;
+    for (let j = i - 1; j >= 0; j--) {
+      if (s[i] === s[j]) {
+        count = i - j;
+        break;
+      }
+    }
+    answer.push(count);
+  }
+
+  return answer;
+}
+
+// 풀이 2
 function solution(s) {
   let answer = [];
   let temp = [];
 
   for (let i = 0; i < s.length; i++) {
     if (!temp.includes(s[i])) {
-      temp.push(s[i]);
       answer.push(-1);
-      continue;
-    }
-
-    for (let j = i - 1; j >= 0; j--) {
-      if (s[i] === s[j]) {
-        answer.push(i - j);
-        break;
-      }
+      temp.push(s[i]);
+    } else {
+      answer.push(i - temp.lastIndexOf(s[i]));
+      temp.push(s[i]);
     }
   }
 
   return answer;
 }
-
-solution("banana");
