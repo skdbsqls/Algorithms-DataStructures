@@ -23,13 +23,17 @@
 function solution(s) {
   let answer = [];
 
+  // s 배열을 돌면서
   for (let i = 0; i < s.length; i++) {
     let count = -1;
+    // 현재 배열의 요소보다 앞에 있는 요소들을 뒤에서부터 돌면서
     for (let j = i - 1; j >= 0; j--) {
+      // 같은 요소가 있는 경우 (뒤에서부터 돌기 때문에 무조건 가장 가까운 요소부터 발견됨)
       if (s[i] === s[j]) {
-        count = i - j;
-        break;
+        count = i - j; // count는 현재 요소의 인덱스 - 가장 가까운 요소의 인덱스로 재할당
+        break; // break로 더 앞에 있는, 현재 요소 기준 더 멀리 있는 요소가 발견되어 count가 재할당될 일이 없도록 함
       }
+      // 같은 요소가 없는 경우 count는 -1
     }
     answer.push(count);
   }
@@ -39,16 +43,21 @@ function solution(s) {
 
 // 풀이 2
 function solution(s) {
-  let answer = [];
-  let temp = [];
+  let answer = []; // 정답
+  let temp = []; // 배열의 요소를 하나씩 담을 그릇
 
   for (let i = 0; i < s.length; i++) {
+    // 만약 temp에 해당 배열의 요소가 없으면
     if (!temp.includes(s[i])) {
-      answer.push(-1);
-      temp.push(s[i]);
-    } else {
+      answer.push(-1); // 정답 배열에 -1을 추가하고
+      temp.push(s[i]); // temp에 해당 요소 추가
+    }
+    // 만약 temp에 해당 배열의 요소가 있으면
+    else {
+      // lastIndexOf를 통해 temp에서 해당 배열의 요소와 같은 요소들 중 마지막 요소를 찾아 인덱스 반환
+      // 해당 요소의 인덱스 - 해당 요소와 가장 가까운 요소의 인덱스를 정답 배열에 추가
       answer.push(i - temp.lastIndexOf(s[i]));
-      temp.push(s[i]);
+      temp.push(s[i]); // temp에 해당 요소 추가
     }
   }
 
