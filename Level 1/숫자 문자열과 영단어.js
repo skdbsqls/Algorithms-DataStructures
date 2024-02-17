@@ -20,8 +20,8 @@ s가 의미하는 원래 숫자를 return 하도록 solution 함수를 완성해
 */
 
 function solution(s) {
-  var answer = [];
-  const nums = [
+  let answer = s;
+  let numbers = [
     "zero",
     "one",
     "two",
@@ -34,9 +34,10 @@ function solution(s) {
     "nine",
   ];
 
-  nums.forEach((n, i) => {
-    answer = s.split(n).join(i);
-  });
+  for (let i = 0; i < numbers.length; i++) {
+    let arr = answer.split(numbers[i]);
+    answer = arr.join(i);
+  }
 
-  return answer;
+  return Number(answer);
 }
