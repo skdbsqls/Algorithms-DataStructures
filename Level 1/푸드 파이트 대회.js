@@ -38,7 +38,10 @@ function solution(food) {
   }
 
   // 다른 선수가 먹는 음식
-  let other = one.reverse(); // reverse() 메서드는 원본 배열을 변형
+  let other = [];
+  for (let i = one.length; i >= 0; i--) {
+    other.push(one[i]);
+  }
 
   // 정답 구하기
   let foods = [...one, 0, ...other];
