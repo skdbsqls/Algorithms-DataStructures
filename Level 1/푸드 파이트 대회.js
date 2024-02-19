@@ -48,3 +48,36 @@ function solution(food) {
 
   return foods.join("");
 }
+
+// 풀이 2
+function solution(food) {
+  let player1 = [];
+  let player2 = [];
+
+  for (let i = 1; i < food.length; i++) {
+    let repeat = Math.floor(food[i] / 2);
+    if (repeat >= 1) {
+      for (let j = 0; j < repeat; j++) {
+        player1.push(i);
+      }
+      for (let k = 0; k < repeat; k++) {
+        player2.unshift(i); // unshift()는 새로운 요소를 배열의 맨 앞쪽에 추가
+      }
+    }
+  }
+
+  return [...player1, 0, ...player2].join("");
+}
+
+// 풀이 3
+function solution(food) {
+  let foods = "";
+
+  for (let i = 0; i < food.length; i++) {
+    // repaet() 메서드는 문자열을 주어진 횟수만큼 반복해 붙인 새로운 문자열 반환
+    foods += String(i).repeat(Math.floor(food[i] / 2));
+  }
+
+  // reverse() 메서드는 원본 배열을 변형하기 때문에 spread 연산을 통해 배열을 복사한 후 reverse() 해줘야 만
+  return `${foods}0${[...foods].reverse().join("")}`;
+}
