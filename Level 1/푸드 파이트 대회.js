@@ -25,9 +25,8 @@
 */
 
 function solution(food) {
-  let one = [];
-
   // 한 선수가 먹는 음식
+  let one = [];
   for (let i = 0; i < food.length; i++) {
     let half = Math.floor(food[i] / 2);
     if (half >= 1) {
@@ -45,7 +44,6 @@ function solution(food) {
 
   // 정답 구하기
   let foods = [...one, 0, ...other];
-
   return foods.join("");
 }
 
