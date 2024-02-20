@@ -20,7 +20,7 @@ function solution(numbers) {
   }
 
   // 중복 제거하기
-  let set = new Set([...sums]);
+  let set = new Set(sums);
 
   return [...set].sort((a, b) => a - b); // 오름차순 정렬
 }
