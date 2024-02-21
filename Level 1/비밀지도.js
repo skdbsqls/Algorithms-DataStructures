@@ -78,3 +78,46 @@ function solution(n, arr1, arr2) {
 
   return entire;
 }
+
+// 간단하게
+function solution(n, arr1, arr2) {
+  let binaryNums1 = [];
+  let binaryNums2 = [];
+
+  for (let i = 0; i < n; i++) {
+    let binaryNum1 = "";
+    let binaryNum2 = "";
+
+    let temp1 = arr1[i].toString(2);
+    let temp2 = arr2[i].toString(2);
+
+    if (temp1.length < n || temp2.length < n) {
+      binaryNum1 += "0".repeat(n - temp1.length);
+      binaryNum2 += "0".repeat(n - temp2.length);
+    }
+
+    binaryNum1 += temp1;
+    binaryNum2 += temp2;
+
+    binaryNums1.push(binaryNum1);
+    binaryNums2.push(binaryNum2);
+  }
+
+  let entire = [];
+
+  for (let i = 0; i < n; i++) {
+    let temp = "";
+    let binaryNum1 = binaryNums1[i];
+    let binaryNum2 = binaryNums2[i];
+
+    for (let j = 0; j < n; j++) {
+      if (binaryNum1[j] === "0" && binaryNum2[j] === "0") {
+        temp += " ";
+      } else temp += "#";
+    }
+
+    entire.push(temp);
+  }
+
+  return entire;
+}
