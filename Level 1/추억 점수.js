@@ -24,6 +24,26 @@
 */
 
 function solution(name, yearning, photo) {
-  var answer = [];
+  let map = new Map(); // Map 생성
+
+  // 이름(키)과 그리움 점수(값) 등록
+  for (let i = 0; i < name.length; i++) {
+    map.set(name[i], yearning[i]);
+  }
+
+  // 사진의 추억 점수 매기기
+  let answer = [];
+  for (let i = 0; i < photo.length; i++) {
+    let sum = 0; // 추억 점수
+    // 사진을 한 장씩 순회하면서
+    photo[i].map((v) => {
+      // 해당 인물이 그리움 점수를 가지고 있으면
+      if (map.has(v)) {
+        sum += map.get(v); // 추억 점수 += 그리움 점수
+      }
+    });
+    answer.push(sum); // 추억 점수 push
+  }
+
   return answer;
 }
