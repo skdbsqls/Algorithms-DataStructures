@@ -26,6 +26,19 @@ cards1과 cards2에 적힌 단어들로 goal를 만들 있다면 "Yes"를, 만�
 */
 
 function solution(cards1, cards2, goal) {
-  var answer = "";
-  return answer;
+  let make = []; // 만들 수 있는 단어의 배열
+
+  for (let i = 0; i < goal.length; i++) {
+    // 첫 번째 카드 뭉치의 첫 번째 카드와 같으면
+    if (cards1[0] === goal[i]) {
+      make.push(cards1.shift()); // 해당 카드 사용
+    }
+    // 만약 두 번째 카드 뭉치의 첫 번째 카드와 같으면
+    else if (cards2[0] === goal[i]) {
+      make.push(cards2.shift()); // 해당 카드 사용
+    }
+    // 둘 다 아니면
+    else break;
+  }
+  return make.length === goal.length ? "Yes" : "No";
 }
