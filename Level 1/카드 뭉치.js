@@ -42,3 +42,20 @@ function solution(cards1, cards2, goal) {
   }
   return make.length === goal.length ? "Yes" : "No";
 }
+
+// 간단하게
+function solution(cards1, cards2, goal) {
+  for (let i = 0; i < goal.length; i++) {
+    // 첫 번째 카드 뭉치의 첫 번째 카드와 같으면
+    if (cards1[0] === goal[i]) {
+      cards1.shift(); // 해당 카드 사용
+    }
+    // 만약 두 번째 카드 뭉치의 첫 번째 카드와 같으면
+    else if (cards2[0] === goal[i]) {
+      cards2.shift(); // 해당 카드 사용
+    }
+    // 둘 다 아니면 원하는 단어 배열 만들 수 없음
+    else return "No";
+  }
+  return "Yes";
+}
