@@ -23,9 +23,10 @@ function solution(number, limit, power) {
   let counts = [];
   for (let i = 1; i <= number; i++) {
     let count = 0;
-    for (let j = 1; j <= i; j++) {
+    for (let j = 1; j <= Math.sqrt(i); j++) {
       if (i % j === 0) {
-        count++;
+        if (j === Math.sqrt(i)) count += 1;
+        else count += 2;
       }
     }
     counts.push(count);
