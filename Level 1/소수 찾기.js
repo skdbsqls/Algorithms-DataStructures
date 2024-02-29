@@ -9,6 +9,7 @@
 - n은 2이상 1000000이하의 자연수입니다.
 */
 
+// 에라토스테네스의 체
 function solution(n) {
   // 인덱스가 0부터 n까지인 배열 생성 (인덱스 0과 1은 false, 나머지는 true)
   let arr = Array(n + 1)
@@ -26,4 +27,23 @@ function solution(n) {
   }
 
   return arr.filter((e) => e).length; // 소수의 개수
+}
+
+// 다른 풀이 => 효율성 테스트 통과 못 함
+function solution(n) {
+  let answer = 0;
+  for (let i = 2; i <= n; i++) {
+    let count = 0;
+    for (let j = 2; j <= Math.sqrt(i); j++) {
+      if (i % j == 0) {
+        count++;
+        break;
+      }
+    }
+    // 소수는 1과 자기 자신만으로 나누어 떨어짐
+    if (count === 0) {
+      answer++;
+    }
+  }
+  return answer;
 }
