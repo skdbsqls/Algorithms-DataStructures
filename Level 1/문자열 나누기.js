@@ -14,6 +14,34 @@
 */
 
 function solution(s) {
-  var answer = 0;
+  let answer = 0; // 분해한 문자열의 개수
+  let x = ""; // 첫 글자
+  let xCount = 0; // x가 나온 횟수
+  let otherCount = 0; // x가 아닌 다른 글자들이 나온 횟수
+
+  for (let i = 0; i < s.length; i++) {
+    // 첫 글자 지정하기
+    if (x === "") {
+      x = s[i];
+      xCount++;
+    }
+
+    // 문자열 읽어나가면서 x와 x가 아닌 다른 글자들이 나온 횟수 세기
+    else if (s[i] === x) {
+      xCount++;
+    } else otherCount++;
+
+    // 처음으로 두 횟수가 같아지는 순간, 문자열 분리 (즉, x와, xCount, otherCount 초기화)
+    if (xCount === otherCount) {
+      x = "";
+      xCount = 0;
+      otherCount = 0;
+      answer++;
+    }
+  }
+
+  // 남은 문자열이 존재하면 해당 문자열도 분리
+  if (xCount !== 0 || otherCount !== 0) answer++;
+
   return answer;
 }
