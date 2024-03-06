@@ -31,7 +31,7 @@ function solution(s) {
       xCount++;
     } else otherCount++;
 
-    // 처음으로 두 횟수가 같아지는 순간, 문자열 분리 (즉, x와, xCount, otherCount 초기화)
+    // 처음으로 두 횟수가 같아지는 순간, 문자열 분리 (x, xCount, otherCount 초기화)
     if (xCount === otherCount) {
       x = "";
       xCount = 0;
