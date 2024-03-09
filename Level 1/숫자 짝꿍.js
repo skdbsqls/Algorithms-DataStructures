@@ -44,5 +44,3 @@ function solution(X, Y) {
   // 가장 큰 수를 만들 수 있는 경우
   return answer;
 }
-
-solution("5525", "1255");
