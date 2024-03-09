@@ -14,6 +14,35 @@
 */
 
 function solution(X, Y) {
-  var answer = "";
+  // 길이가 10인 배열 생성 및 0으로 값을 채움
+  let xArr = new Array(10).fill(0);
+  let yArr = new Array(10).fill(0);
+
+  // X와 Y를 순회하면서 해당 숫자와 같은 인덱스의 값을 +1 (어떤 숫자가 몇 번 나타나는 지 체크)
+  for (let i = 0; i < X.length; i++) {
+    xArr[X[i]] += 1;
+  }
+  for (let i = 0; i < Y.length; i++) {
+    yArr[Y[i]] += 1;
+  }
+
+  // xArr와 yArr를 순회하면서 (거꾸로, 가장 큰 수를 만들기 위함)
+  let answer = ""; // 공통으로 나타나는 수로 만들 수 있는 가장 큰 정수
+  for (let i = 9; i >= 0; i--) {
+    // 값이 0이 아닌 경우
+    if (xArr[i] !== 0 && yArr[i] !== 0) {
+      // 두 배열의 값 중 작은 값
+      let min = Math.min(xArr[i], yArr[i]);
+      answer += i.toString().repeat(min);
+    }
+  }
+
+  // 공통된 숫자가 없는 경우
+  if (answer === "") return "-1";
+  // 공통된 숫자가 0만 있는 경우
+  if (answer[0] === "0") return "0";
+  // 가장 큰 수를 만들 수 있는 경우
   return answer;
 }
+
+solution("5525", "1255");
