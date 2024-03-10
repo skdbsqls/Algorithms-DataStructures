@@ -86,4 +86,19 @@ const getRank = (count) => {
   if (count === 0) return 6;
 };
 
-solution([44, 1, 0, 0, 31, 25], [31, 10, 45, 1, 6, 19]);
+// 간단하게 정리
+function solution(lottos, win_nums) {
+  let zeroCount = 0; // 로또 번호 중 알아보지 못하는 번호 개수
+  let winCount = 0; // 로또 번호 중 당첨 번호와 맞는 번호 개수
+
+  for (let i = 0; i < lottos.length; i++) {
+    if (lottos[i] === 0) zeroCount++; // 알아보지 못하는 번호 개수 구하기
+    for (let j = 0; j < win_nums.length; j++) {
+      if (lottos[i] === win_nums[j]) winCount++; // 당첨 번호와 맞는 번호 개수 구하기
+    }
+  }
+  let minRank = getRank(winCount); // 최저 순위
+  let maxRank = getRank(winCount + zeroCount); // 최고 순위
+
+  return [maxRank, minRank];
+}
