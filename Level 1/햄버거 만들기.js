@@ -36,3 +36,19 @@ function solution(ingredient) {
   }
   return count;
 }
+
+// 다른 풀이
+function solution(ingredient) {
+  let count = 0;
+  let temp = [];
+
+  for (let i = 0; i < ingredient.length; i++) {
+    temp.push(ingredient[i]);
+
+    if (temp.slice(-4).join("") === "1231") {
+      temp.splice(-4);
+      count++;
+    }
+  }
+  return count;
+}
