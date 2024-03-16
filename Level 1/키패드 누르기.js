@@ -61,7 +61,7 @@ function solution(numbers, hand) {
       }
 
       for (let j = 0; j < 4; j++) {
-        // 왼손 엄지손가락 위치 찾기
+        // 왼손 엄지손가락 거리 계산하기
         if (leftHands[leftHands.length - 1] === left[j]) {
           leftHand = Math.abs(input - j) + 1;
         }
@@ -69,7 +69,7 @@ function solution(numbers, hand) {
           leftHand = Math.abs(input - j);
         }
 
-        // 오른손 엄지손가락 위치 찾기
+        // 오른손 엄지손가락 거리 계산하기
         if (rightHands[rightHands.length - 1] === right[j]) {
           rightHand = Math.abs(input - j) + 1;
         }
@@ -105,3 +105,7 @@ function solution(numbers, hand) {
 
   return answer;
 }
+
+// 수정
+// leftHand와 rightHand의 값을 갱신해가면서 풀 수 있는지 풀어보기
+// 키패드를 좌표로 보고 풀어보기
