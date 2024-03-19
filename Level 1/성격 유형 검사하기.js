@@ -69,6 +69,54 @@
 */
 
 function solution(survey, choices) {
-  var answer = "";
+  let answer = "";
+  const score = {
+    1: 3,
+    2: 2,
+    3: 1,
+    4: 0,
+    5: 1,
+    6: 2,
+    7: 3,
+  };
+  const type = {
+    R: 0,
+    T: 0,
+    C: 0,
+    F: 0,
+    J: 0,
+    M: 0,
+    A: 0,
+    N: 0,
+  };
+  const pair = [
+    ["R", "T"],
+    ["C", "F"],
+    ["J", "M"],
+    ["A", "N"],
+  ];
+
+  // 유형별 점수 매기기
+  for (let i = 0; i < survey.length; i++) {
+    // 비동의 관련
+    if (choices[i] < 4) {
+      type[survey[i][0]] += score[choices[i]];
+    }
+    // 동의 관련
+    if (choices[i] > 4) {
+      type[survey[i][1]] += score[choices[i]];
+    }
+  }
+
+  // 성격유형 찾기
+  for (let i = 0; i < pair.length; i++) {
+    if (type[pair[i][0]] >= type[pair[i][1]]) {
+      answer += pair[i][0];
+    }
+    if (type[pair[i][0]] < type[pair[i][1]]) {
+      answer += pair[i][1];
+    }
+  }
+
   return answer;
 }
