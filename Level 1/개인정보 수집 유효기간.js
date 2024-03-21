@@ -68,8 +68,6 @@ function solution(today, terms, privacies) {
     personals[i] = [year, month, day];
   }
 
-  console.log(personals);
-
   let answer = []; // 파기해야 할 개인정보
   for (let i = 0; i < Object.keys(personals).length; i++) {
     let personal = personals[i];
@@ -91,11 +89,9 @@ function solution(today, terms, privacies) {
       answer.push(i + 1);
     }
   }
-  console.log(answer);
+
   return answer;
 }
-
-solution("2009.12.31", ["A 13"], ["2008.11.03 A"]);
 
 // 객체의 길이를 구하는 방법
 // Object.keys(obj).length;
