@@ -93,5 +93,27 @@ function solution(today, terms, privacies) {
   return answer;
 }
 
-// 객체의 길이를 구하는 방법
-// Object.keys(obj).length;
+// 다른 풀이
+function solution(today, terms, privacies) {
+  let answer = []; // 파기해야 할 개인정보
+
+  let [yy, mm, dd] = today.split(".").map((v) => Number(v));
+  let todates = yy * 12 * 28 + mm * 28 + dd; // 오늘 날짜 총 일수
+
+  let term = {}; // 약관 종류별 유효기간
+  for (let i = 0; i < terms.length; i++) {
+    let [type, month] = terms[i].split(" ");
+    term[type] = Number(month) * 28;
+  }
+
+  for (let i = 0; i < privacies.length; i++) {
+    let [date, type] = privacies[i].split(" ");
+    let [yy, mm, dd] = date.split(".").map((v) => Number(v));
+    let dates = yy * 12 * 28 + mm * 28 + dd + term[type]; // 파기해야 할 날짜 총 일수
+
+    // 오늘 날짜 총 일수가 파기해야 할 날짜 총 일수보다 크거나 같으면 파기
+    if (dates <= todates) answer.push(i + 1);
+  }
+
+  return answer;
+}
