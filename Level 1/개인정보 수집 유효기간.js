@@ -42,27 +42,34 @@
 
 function solution(today, terms, privacies) {
   let provision = {}; // 약관
+  // 약관 종류별 유효기간
   for (let i = 0; i < terms.length; i++) {
     let term = terms[i].split(" ");
     provision[term[0]] = Number(term[1]);
   }
 
   let personals = {}; // 개인정보 유효기간
+  // 개인정보별 마지막 보관 가능 날짜 구하기
   for (let i = 0; i < privacies.length; i++) {
     let privacy = privacies[i].split(" ");
-    let date = privacy[0].split(".").map((v) => Number(v));
+    let [yy, mm, dd] = privacy[0].split(".").map((v) => Number(v)); // 개인정보 수집 일자
 
-    let year = 0;
-    let month = 0;
-    let day = 0;
-    if ((date[1] + provision[privacy[1]]) % 12 === 0) {
-      year = date[0] + Math.floor((date[1] + provision[privacy[1]]) / 12) - 1;
+    let year = 0; // 마지막 보관 가능 년도
+    let month = 0; // 마지막 보관 가능 월
+    let day = 0; // 마지막 보관 가능 일
+
+    // (개인정보 수집 일자의 월 + 유효기간 월)를 12로 나누었을 때, 나누어 떨어지는 경우
+    // 예를 들어 개인정보 수집 일자가 2020.06.05이고, 유효기간이 6개월 일 때 마지막 보관 가능 날짜는 2020.12.05
+    if ((mm + provision[privacy[1]]) % 12 === 0) {
+      year = yy + Math.floor((mm + provision[privacy[1]]) / 12) - 1;
       month = 12;
-      day = date[2] - 1;
-    } else {
-      year = date[0] + Math.floor((date[1] + provision[privacy[1]]) / 12);
-      month = (date[1] + provision[privacy[1]]) % 12;
-      day = date[2] - 1;
+      day = dd - 1;
+    }
+    // 나누어 떨어지지 않는 경우
+    else {
+      year = yy + Math.floor((mm + provision[privacy[1]]) / 12);
+      month = (mm + provision[privacy[1]]) % 12;
+      day = dd - 1;
     }
 
     personals[i] = [year, month, day];
@@ -70,21 +77,14 @@ function solution(today, terms, privacies) {
 
   let answer = []; // 파기해야 할 개인정보
   for (let i = 0; i < Object.keys(personals).length; i++) {
-    let personal = personals[i];
-    let todate = today.split(".").map((v) => Number(v));
+    let [py, pm, pd] = personals[i];
+    let [ty, tm, td] = today.split(".").map((v) => Number(v));
 
-    if (personal[0] < todate[0]) {
-      answer.push(i + 1);
-    }
-
-    if (personal[0] === todate[0] && personal[1] < todate[1]) {
-      answer.push(i + 1);
-    }
-
+    // 마지막 보관 날짜가 오늘 날짜 이전인 경우 파기
     if (
-      personal[0] === todate[0] &&
-      personal[1] === todate[1] &&
-      personal[2] < todate[2]
+      py < ty ||
+      (py === ty && pm < tm) ||
+      (py === ty && pm === tm && pd < td)
     ) {
       answer.push(i + 1);
     }
