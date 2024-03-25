@@ -63,3 +63,20 @@ function solution(players, callings) {
 
   return players;
 }
+
+// 배열의 요소를 swap하는 방법
+// (1) 임시 변수 temp 활용하기
+const arr = [1, 2, 3, 4, 5];
+
+const temp = arr[0];
+arr[0] = arr[4];
+arr[4] = temp;
+
+console.log(arr); // [ 5, 2, 3, 4, 1 ]
+
+// (2) destructuring 활용하기
+const arr2 = [1, 2, 3, 4, 5];
+
+[arr2[0], arr2[4]] = [arr2[4], arr2[0]];
+
+console.log(arr2); // [ 5, 2, 3, 4, 1 ]
