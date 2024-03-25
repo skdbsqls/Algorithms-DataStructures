@@ -23,11 +23,21 @@ function solution(players, callings) {
     let index = players.indexOf(callings[i]); // 불린 이름의 인덱스
 
     // 앞 선수 추월하기 (배열의 요소 바꾸기)
-    let calling = players[index];
+    let temp = players[index];
     players[index] = players[index - 1];
-    players[index - 1] = calling;
+    players[index - 1] = temp;
   }
-  return players;
-}
 
-solution(["mumu", "soe", "poe", "kai", "mine"], ["kai", "kai", "mine", "mine"]);
+  return players;
+} // 시간 초과
+
+function solution(players, callings) {
+  for (let i = 0; i < callings.length; i++) {
+    let index = players.indexOf(callings[i]); // 불린 이름의 인덱스
+
+    // 앞 선수 추월하기 (배열의 요소 바꾸기)
+    [players[index], players[index - 1]] = [players[index - 1], players[index]];
+  }
+
+  return players;
+} // 시간 초과
