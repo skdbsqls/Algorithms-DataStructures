@@ -23,9 +23,9 @@ function solution(players, callings) {
     let index = players.indexOf(callings[i]); // 불린 이름의 인덱스
 
     // 앞 선수 추월하기 (배열의 요소 바꾸기)
-    let temp = players[index];
+    let calling = players[index];
     players[index] = players[index - 1];
-    players[index - 1] = temp;
+    players[index - 1] = calling;
   }
 
   return players;
@@ -41,3 +41,25 @@ function solution(players, callings) {
 
   return players;
 } // 시간 초과
+
+// 정답 풀이
+function solution(players, callings) {
+  let rank = {}; // 선수별 순위(인덱스)
+  players.map((v, i) => {
+    rank[v] = i;
+  });
+
+  for (let i = 0; i < callings.length; i++) {
+    // ranks 객체를 이용하여 불린 선수의 인덱스 구하기
+    let index = rank[callings[i]];
+
+    // 앞 선수 추월하기 (배열의 요소 바꾸기)
+    [players[index], players[index - 1]] = [players[index - 1], players[index]];
+
+    // 선수별 순위도 업데이트 하기
+    rank[players[index - 1]] = index - 1;
+    rank[players[index]] = index;
+  }
+
+  return players;
+}
