@@ -50,7 +50,7 @@ function solution(players, callings) {
   });
 
   for (let i = 0; i < callings.length; i++) {
-    // ranks 객체를 이용하여 불린 선수의 인덱스 구하기
+    // rank 객체를 이용하여 불린 선수의 인덱스 구하기
     let index = rank[callings[i]];
 
     // 앞 선수 추월하기 (배열의 요소 바꾸기)
