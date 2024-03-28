@@ -37,6 +37,47 @@
 */
 
 function solution(park, routes) {
-  var answer = [];
-  return answer;
+  let answer = [];
+
+  // 방향별 움직임
+  let directions = {
+    N: [-1, 0],
+    S: [1, 0],
+    W: [0, -1],
+    E: [0, 1],
+  };
+
+  let W = park[0].length - 1; // 가로 길이
+  let H = park.length - 1; // 세로 길이
+
+  let start = []; // 시작 위치
+
+  // 시작 위치 구하기
+  for (let i = 0; i < park.length; i++) {
+    for (let j = 0; j < park[i].length; j++) {
+      if (park[i][j] === "S") {
+        start = [i, j];
+      }
+    }
+  }
+
+  // 경로를 따라 위치 이동하기
+  for (let i = 0; i < routes.lengt; i++) {
+    let [direction, distance] = routes[i].split(" "); // 방향, 이동거리
+    let [w, h] = [start[0], start[1]]; // 경로에 따른 위치
+
+    // 이동 거리만큼 반복
+    for (let j = 0; j < Number(distance); j++) {
+      w += directions[direction][0];
+      h += directions[direction][1];
+    }
+
+    // 이동했을 때 w, h의 위치가
+    // (1) 0보다 작거나, 가로&세로 길이보다 크면 반영 X
+    // (2) park[w][h]가 === "X"이면 반영 X
+  }
 }
+
+solution(["SOO", "OOO", "OOO"], ["E 2", "S 2", "W 1"]);
+solution(["SOO", "OXX", "OOO"], ["E 2", "S 2", "W 1"]);
+solution(["OSO", "OOO", "OXO", "OOO"], ["E 2", "S 3", "W 1"]);
