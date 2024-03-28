@@ -37,8 +37,6 @@
 */
 
 function solution(park, routes) {
-  let answer = [];
-
   // 방향별 움직임
   let directions = {
     N: [-1, 0],
@@ -60,24 +58,23 @@ function solution(park, routes) {
       }
     }
   }
-
   // 경로를 따라 위치 이동하기
-  for (let i = 0; i < routes.lengt; i++) {
+  for (let i = 0; i < routes.length; i++) {
     let [direction, distance] = routes[i].split(" "); // 방향, 이동거리
-    let [w, h] = [start[0], start[1]]; // 경로에 따른 위치
+    let [x, y] = start; // 경로에 따른 위치
 
-    // 이동 거리만큼 반복
-    for (let j = 0; j < Number(distance); j++) {
-      w += directions[direction][0];
-      h += directions[direction][1];
+    // 주어진 거리만큼 한 칸씩 이동
+    let step = 0; // 움직임
+    while (step < Number(distance)) {
+      x += directions[direction][0]; // 방향에 따른 가로 움직임
+      y += directions[direction][1]; // 방향에 따른 세로 움직임
+
+      // 이동했을 때 위치가 공원을 벗어나거나 X(장애물)을 만나면 종료 (주어진 거리만큼 이동하지 못 함)
+      if (x < 0 || x > H || y < 0 || y > W || park[x][y] === "X") break;
+      step++;
     }
-
-    // 이동했을 때 w, h의 위치가
-    // (1) 0보다 작거나, 가로&세로 길이보다 크면 반영 X
-    // (2) park[w][h]가 === "X"이면 반영 X
+    // 주어진 거리만큼 이동했다면 위치 이동
+    if (step === Number(distance)) start = [x, y];
   }
+  return start;
 }
-
-solution(["SOO", "OOO", "OOO"], ["E 2", "S 2", "W 1"]);
-solution(["SOO", "OXX", "OOO"], ["E 2", "S 2", "W 1"]);
-solution(["OSO", "OOO", "OXO", "OOO"], ["E 2", "S 3", "W 1"]);
