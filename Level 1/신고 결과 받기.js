@@ -28,6 +28,40 @@
 */
 
 function solution(id_list, report, k) {
-  var answer = [];
+  let reports = {}; // 유저 별 자신을 신고한 유저 ID
+  // 유저 등록
+  for (let i = 0; i < id_list.length; i++) {
+    reports[id_list[i]] = [];
+  }
+  // 유저 별 자신을 신고한 유저 ID 배열 등록
+  for (let i = 0; i < report.length; i++) {
+    let [from, to] = report[i].split(" "); // 신고 한 사람, 신고 당한 사람
+
+    // 한 유저를 여러 번 신고할 경우 신고 횟수는 1회 처리이므로 중복 신고자는 등록하지 않음
+    if (!reports[to].includes(from)) {
+      reports[to].push(from);
+    }
+  }
+
+  let recevie = {}; // 각 유저별 처리 결과 메일을 받은 횟수
+  // 유저 등록
+  for (let i = 0; i < id_list.length; i++) {
+    recevie[id_list[i]] = 0;
+  }
+  for (let i = 0; i < id_list.length; i++) {
+    // 유저별 신고 받은 횟수가 k 이상인 경우 정지
+    if (reports[id_list[i]].length >= k) {
+      // 자신을 신고한 유저에게 처리 결과 메일 발송
+      for (let j = 0; j < reports[id_list[i]].length; j++) {
+        recevie[reports[id_list[i]][j]] += 1;
+      }
+    }
+  }
+
+  let answer = [];
+  for (let i = 0; i < id_list.length; i++) {
+    answer.push(recevie[id_list[i]]);
+  }
+
   return answer;
 }
