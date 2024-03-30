@@ -29,6 +29,7 @@
  - 1 ≤ 피해량 ≤ 100
 */
 
+// 풀이 1
 function solution(bandage, health, attacks) {
   let [t, x, y] = bandage; // 시전 시간, 초당 회복량, 추가 회복량
   let curHealth = health; // 현재 체력
@@ -52,6 +53,44 @@ function solution(bandage, health, attacks) {
 
     // 최근 공격 시간 업데이트
     curAttack = attackTime;
+  }
+
+  return curHealth;
+}
+
+// 풀이 2
+function solution(bandage, health, attacks) {
+  let [t, x, y] = bandage; // 시전 시간, 초당 회복량, 추가 회복량
+  let lastAttack = attacks[attacks.length - 1][0]; // 마지막 공격 시간
+  let curHealth = health; // 현재 체력
+  let contiSuccess = 0; // 연속 공격
+
+  for (let i = 0; i <= lastAttack; i++) {
+    // 현재 시간이 공격 시간과 같으면 해당 공격 진행
+    let attack = attacks.find((attack) => attack[0] === i);
+
+    // 공격 시간이면
+    if (attack) {
+      curHealth -= attack[1]; // 현재 체력 감소
+      contiSuccess = 0; // 연속 공격 초기화
+
+      // 단, 체력이 0이하면 죽음(-1 반환)
+      if (curHealth <= 0) return -1;
+    }
+    // 회복 시간이면
+    else {
+      contiSuccess++; // 연속 공격 + 1
+      curHealth += x; // 초당 회복
+      // 단, 현재 체력이 최대 체력보다 커지는 것은 불가능
+      if (curHealth >= health) curHealth = health;
+      // 연속 공격 횟수가 시전 시간과 같으면
+      else if (contiSuccess === t) {
+        curHealth += y; // 추가 회복
+        // 단, 현재 체력이 최대 체력보다 커지는 것은 불가능
+        if (curHealth >= health) curHealth = health;
+        contiSuccess = 0; // 연속 공격 초기화
+      }
+    }
   }
 
   return curHealth;
