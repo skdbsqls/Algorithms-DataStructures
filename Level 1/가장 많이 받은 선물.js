@@ -26,6 +26,58 @@
 */
 
 function solution(friends, gifts) {
-  var answer = 0;
-  return answer;
+  let give = {}; // 친구별 선물을 준 사람
+  let giftIndex = {}; // 친구별 선물 지수
+
+  // 친구 목록 셋팅
+  for (let i = 0; i < friends.length; i++) {
+    give[friends[i]] = [];
+    giftIndex[friends[i]] = 0;
+  }
+
+  for (let i = 0; i < gifts.length; i++) {
+    let [from, to] = gifts[i].split(" ");
+
+    // 친구별 선물을 준 사람 목록 추가
+    give[from].push(to);
+
+    // 선물 지수 구하기
+    giftIndex[from] += 1; // 준 선물
+    giftIndex[to] -= 1; // 받은 선물
+  }
+
+  let maxGift = 0; // 가장 많은 선물을 받는 친구가 받을 선물의 수
+
+  for (let i = 0; i < friends.length; i++) {
+    let from = friends[i]; // 선물을 주는 사람
+    let count = 0; // from이 다음 달 받게 될 선물의 수
+
+    for (let j = 0; j < friends.length; j++) {
+      let to = friends[j]; // 선물을 받는 사람
+
+      // from이 to에게 준 선물의 수
+      let send = give[from].filter((v) => v === to).length;
+      // from이 to에게 받은 선물의 수
+      let receive = give[to].filter((v) => v === from).length;
+
+      console.log(from, to, send, receive);
+
+      // from이 to에게 준 선물의 수가 받은 선물의 수보다 많은 경우 from은 다음 달에 선물을 받게 됨
+      if (send > receive) {
+        count++;
+      }
+      // from과 to가 주고 받은 선물이 없거나 같은 경우
+      if (send === receive) {
+        // from의 선물 지수가 to의 선물 지수보다 높다면 다음 달에 선물을 받게 됨
+        if (giftIndex[from] > giftIndex[to]) {
+          count++;
+        }
+      }
+    }
+
+    // 최대 선물의 수 갱신
+    if (count > maxGift) maxGift = count;
+  }
+
+  return maxGift;
 }
