@@ -12,7 +12,24 @@ JadenCase란 모든 단어의 첫 문자가 대문자이고, 그 외의 알파�
  - 공백문자가 연속해서 나올 수 있습니다.
 */
 
+// 오답
 function solution(s) {
-  var answer = "";
-  return answer;
+  let arr = s.toLowerCase().split(" ");
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1);
+  }
+
+  return arr.join(" ");
+}
+
+// 정답
+function solution(s) {
+  let arr = s.toLowerCase().split(" ");
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+  }
+
+  return arr.join(" ");
 }
