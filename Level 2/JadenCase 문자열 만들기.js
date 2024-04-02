@@ -26,10 +26,16 @@ function solution(s) {
 // 정답
 function solution(s) {
   let arr = s.toLowerCase().split(" ");
+  console.log(arr); // ['for', 'the', '', 'last', '', '', 'week']
 
   for (let i = 0; i < arr.length; i++) {
+    console.log("[0]", arr[i][0]); // f, t, undefined, l, undefined, undefined, w
+    console.log("charAt(0)", arr[i].charAt(0)); // f, t, '', l, '', '', w
+
     arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
   }
 
   return arr.join(" ");
 }
+
+solution("for the  last   week");
