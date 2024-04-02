@@ -9,6 +9,11 @@ str에 나타나는 숫자 중 최소값과 최대값을 찾아 이를 "(최소�
 */
 
 function solution(s) {
-  var answer = "";
-  return answer;
+  let answer = [];
+  let sArr = s.split(" ").map((v) => Number(v));
+
+  answer.push(Math.min(...sArr));
+  answer.push(Math.max(...sArr));
+
+  return answer.join(" ");
 }
