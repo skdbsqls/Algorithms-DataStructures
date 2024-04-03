@@ -18,7 +18,7 @@
 - 배열 A, B의 원소의 크기 : 1,000 이하의 자연수
 */
 
-// 오답
+// 오답 (시간 초과)
 function solution(A, B) {
   let mul = []; // 최솟값 X 최댓값 배열
 
@@ -43,4 +43,16 @@ function solution(A, B) {
   return answer;
 }
 
-solution([1, 4, 2], [5, 4, 4]);
+// 정답
+function solution(A, B) {
+  let answer = 0; // 구하고자 하는 최솟값
+
+  A.sort((a, b) => a - b); // 오름차순 정렬
+  B.sort((a, b) => b - a); // 내림차순 정렬
+
+  for (let i = 0; i < A.length; i++) {
+    answer += A[i] * B[i]; // 배열 A의 최솟값 * 배열 B의 최댓값
+  }
+
+  return answer;
+}
