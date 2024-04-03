@@ -18,11 +18,29 @@
 - 배열 A, B의 원소의 크기 : 1,000 이하의 자연수
 */
 
+// 오답
 function solution(A, B) {
-  var answer = 0;
+  let mul = []; // 최솟값 X 최댓값 배열
 
-  // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-  console.log("Hello Javascript");
+  while (A.length > 0) {
+    let min = Math.min(...A); // A 배열의 최솟값
+    let max = Math.max(...B); // B 배열의 최댓값
+
+    mul.push(min * max);
+
+    // 각 배열에서 최솟값과 최댓값 삭제
+    A.splice(A.indexOf(min), 1);
+    B.splice(B.indexOf(max), 1);
+  }
+
+  let answer = 0; // 구하고자 하는 최솟값
+
+  // 누적된 최솟값 구하기
+  for (let i = 0; i < mul.length; i++) {
+    answer += mul[i];
+  }
 
   return answer;
 }
+
+solution([1, 4, 2], [5, 4, 4]);
