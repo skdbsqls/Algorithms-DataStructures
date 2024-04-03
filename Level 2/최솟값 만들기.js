@@ -56,3 +56,11 @@ function solution(A, B) {
 
   return answer;
 }
+
+// 정답 (reduce 활용하기)
+function solution(A, B) {
+  A.sort((a, b) => a - b); // 오름차순 정렬
+  B.sort((a, b) => b - a); // 내림차순 정렬
+
+  return A.reduce((acc, cur, index) => acc + cur * B[index], 0);
+}
