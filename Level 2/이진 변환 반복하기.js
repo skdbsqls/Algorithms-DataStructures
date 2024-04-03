@@ -19,9 +19,9 @@ function solution(s) {
   let transform = 0; // 이진 변환 횟수
   let zeroSum = 0; // 제거할 0의 개수
 
-  let removeZero = ""; // 0을 제거한 문자열
-
   while (s > 1) {
+    let removeZero = ""; // 0을 제거한 문자열
+
     // 0 제거하기
     for (let i = 0; i < s.length; i++) {
       if (s[i] === "1") removeZero += "1";
@@ -31,7 +31,6 @@ function solution(s) {
     // 이진 변환하기
     transform++; // 변환 횟수 + 1
     s = removeZero.length.toString(2); // 이진 변환
-    removeZero = ""; // 0을 제거한 문자열 초기화
   }
 
   return [transform, zeroSum];
