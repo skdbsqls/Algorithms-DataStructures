@@ -29,7 +29,7 @@ function solution(n) {
 
   return answer;
 }
-// 오답 (효율성 12.5점)
+// 정답
 function solution(n) {
   let answer = 1;
 
