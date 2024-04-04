@@ -13,7 +13,22 @@
 - n은 1,000,000 이하의 자연수 입니다.
 */
 
+// 풀이 1
 function solution(n) {
-  var answer = 0;
-  return answer;
+  let nSum = 0; // 자연수 n의 1의 개수
+  // 자연수 n의 1의 개수 구하기
+  for (let i = 0; i < n.toString(2).length; i++) {
+    if (n.toString(2)[i] === "1") nSum++;
+  }
+
+  // 조건 1) n보다 큰 자연수
+  for (let i = n + 1; i <= 1000000; i++) {
+    let sum = 0; // n보다 큰 자연수의 1의 개수
+    // n보다 큰 자연수의 1의 개수 구하기
+    for (let j = 0; j < i.toString(2).length; j++) {
+      if (i.toString(2)[j] === "1") sum++;
+    }
+    // 조건 2) n과 n보다 큰 자연수를 2진수로 변환했을 때 1의 개수가 같음
+    if (nSum === sum) return i;
+  }
 }
