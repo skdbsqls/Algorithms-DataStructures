@@ -30,3 +30,19 @@ function solution(n) {
   // n번째 피보나치 수를 1234567으로 나눈 나머지
   return F[n] % 1234567;
 }
+
+// 정답
+function solution(n) {
+  let F = new Array(n + 1); // 피보나치 수 배열
+  // F(0) = 0, F(1) = 1일 때
+  F[0] = 0;
+  F[1] = 1;
+
+  // ex) F(2) = F(0) + F(1)
+  for (let i = 2; i <= n; i++) {
+    F[i] = (F[i - 2] + F[i - 1]) % 1234567;
+  }
+
+  // n번째 피보나치 수를 1234567으로 나눈 나머지
+  return F[n];
+}
