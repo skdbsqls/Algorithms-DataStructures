@@ -15,11 +15,25 @@ Finn은 요즘 수학공부에 빠져 있습니다. 수학 공부를 하던 Finn
 - n은 10,000 이하의 자연수 입니다.
 */
 
-// 오답 (시간 초과)
+// 오답 (효율성 0)
 function solution(n) {
   let answer = 0;
 
   for (let i = 1; i <= n; i++) {
+    let sum = i;
+    for (let j = i + 1; sum < n; j++) {
+      sum += j;
+    }
+    if (sum === n) answer++;
+  }
+
+  return answer;
+}
+// 오답 (효율성 12.5점)
+function solution(n) {
+  let answer = 1;
+
+  for (let i = 1; i <= n / 2; i++) {
     let sum = i;
     for (let j = i + 1; sum < n; j++) {
       sum += j;
