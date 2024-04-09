@@ -36,10 +36,21 @@ tank → kick → know → wheel → land → dream → mother → robot → tan
 */
 
 function solution(n, words) {
-  var answer = [];
+  let stack = [words[0]];
 
-  // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-  console.log("Hello Javascript");
+  for (let i = 1; i < words.length; i++) {
+    // (1) 앞사람이 말한 단어의 마지막 문자로 시작하는 단어를 말하지 않은 경우
+    let last = stack[stack.length - 1]; // 앞사람이 말한 단어
+    if (last.charAt(last.length - 1) !== words[i].charAt(0)) {
+      return [(i % n) + 1, Math.floor(i / n) + 1];
+    }
+    // (2) 이전에 등장했던 단어인 경우
+    if (stack.includes(words[i])) {
+      return [(i % n) + 1, Math.floor(i / n) + 1];
+    }
+    // 단어 추가
+    stack.push(words[i]);
+  }
 
-  return answer;
+  return [0, 0];
 }
