@@ -43,3 +43,40 @@ function solution(k, tangerine) {
 
   return answer;
 }
+
+// 객체의 값을 기준으로 정렬하는 방법
+let obj = {
+  a: 1,
+  b: 2,
+  c: 3,
+};
+// 객체의 모든 값을 배열로 출력
+console.log(Object.values(obj)); // [1, 2, 3]
+// 해당 배열을 정렬
+console.log(Object.values(obj).sort((a, b) => b - a)); // [3, 2, 1]
+
+// 위의 방법을 사용한 간단한 풀이
+function solution(k, tangerine) {
+  let types = {};
+
+  // 귤의 크기별 개수
+  for (let i = 0; i < tangerine.length; i++) {
+    if (types[tangerine[i]] > 0) {
+      types[tangerine[i]] += 1;
+    } else types[tangerine[i]] = 1;
+  }
+
+  // 객체의 값을 내림차순 정렬
+  let arr = Object.values(types).sort((a, b) => b - a);
+
+  // 서로 다른 종류의 수 구하기
+  let answer = 0; // 서로 다른 종류의 수
+  let count = 0; // 박스에 담긴 귤의 개수
+  for (let i = 0; i < arr.length; i++) {
+    if (count >= k) break; // 담으려는 개수만큼 담아지면 break
+    count += arr[i];
+    answer++;
+  }
+
+  return answer;
+}
