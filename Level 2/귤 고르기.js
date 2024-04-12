@@ -15,6 +15,31 @@
 */
 
 function solution(k, tangerine) {
-  var answer = 0;
+  let types = {};
+
+  // 귤의 크기별 개수
+  for (let i = 0; i < tangerine.length; i++) {
+    if (types[tangerine[i]] > 0) {
+      types[tangerine[i]] += 1;
+    } else types[tangerine[i]] = 1;
+  }
+
+  // 개수가 많은 순대로 정렬
+  let arr = [];
+  // 객체를 2차원 배열로 전환
+  for (let type in types) {
+    arr.push([type, types[type]]);
+  }
+  arr.sort((a, b) => b[1] - a[1]); // 내림차순 정렬
+
+  // 서로 다른 종류의 수 구하기
+  let answer = 0; // 서로 다른 종류의 수
+  let count = 0; // 박스에 담긴 귤의 개수
+  for (let i = 0; i < arr.length; i++) {
+    if (count >= k) break; // 담으려는 개수만큼 담아지면 break
+    count += arr[i][1];
+    answer++;
+  }
+
   return answer;
 }
