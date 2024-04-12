@@ -17,10 +17,13 @@ N명의 참가자는 각각 1부터 N번을 차례대로 배정받습니다. 그
 */
 
 function solution(n, a, b) {
-  var answer = 0;
+  let round = 0;
 
-  // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-  console.log("Hello Javascript");
+  while (a !== b) {
+    a = Math.ceil(a / 2);
+    b = Math.ceil(b / 2);
+    round++;
+  }
 
-  return answer;
+  return round;
 }
