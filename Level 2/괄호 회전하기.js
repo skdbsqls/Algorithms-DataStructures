@@ -14,6 +14,33 @@
 */
 
 function solution(s) {
-  var answer = -1;
-  return answer;
+  let sArr = s.split(""); // 배열로 변환
+  let count = 0; // 올바른 괄호 문자열이 되게 하는 x의 개수
+
+  // s를 왼쪽으로 x칸 만큼 회전
+  for (let i = 0; i < sArr.length; i++) {
+    let stack = []; // 초기화
+
+    // 올바른 괄호인지 확인
+    for (let j = 0; j < sArr.length; j++) {
+      if (
+        (sArr[j] === ")" && stack[stack.length - 1] === "(") ||
+        (sArr[j] === "]" && stack[stack.length - 1] === "[") ||
+        (sArr[j] === "}" && stack[stack.length - 1] === "{")
+      ) {
+        stack.pop();
+      } else {
+        stack.push(sArr[j]);
+      }
+    }
+
+    // 올바른 괄호라면
+    if (stack.length === 0) count++;
+
+    // s 회전하기
+    let first = sArr.shift();
+    sArr.push(first);
+  }
+
+  return count;
 }
