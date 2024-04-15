@@ -12,6 +12,18 @@
 */
 
 function solution(elements) {
-  var answer = 0;
-  return answer;
+  let set = new Set(); // 중복 제거
+
+  // 길이가 n인 연속 부분 수열
+  for (let i = 1; i <= elements.length; i++) {
+    // 원순열 만들기 n개의 원소를 원본 배열 뒤에 추가
+    let circle = elements.concat(elements.slice(0, i));
+
+    // 길이가 n인 연속 부분 수열의 합
+    for (let j = 0; j < elements.length; j++) {
+      set.add(circle.slice(j, j + i).reduce((acc, cur) => acc + cur, 0));
+    }
+  }
+  // 만들 수 있는 수의 개수
+  return set.size;
 }
