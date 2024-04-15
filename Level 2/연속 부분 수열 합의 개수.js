@@ -27,3 +27,21 @@ function solution(elements) {
   // 만들 수 있는 수의 개수
   return set.size;
 }
+
+// 풀이 2 (배열 두 개를 붙여 원순열로 만들어 놓고 시작하기)
+function solution(elements) {
+  let set = new Set(); // 중복 제거
+  let circle = elements.concat(elements); // 원본 배열 + 원본 배열
+
+  // 길이가 n인 연속 부분 수열
+  for (let i = 1; i <= elements.length; i++) {
+    let sum = 0; // 부분 수열의 합
+    // 길이가 n인 연속 부분 수열의 합
+    for (let j = 0; j < elements.length; j++) {
+      sum += circle[i + j];
+      set.add(sum);
+    }
+  }
+  // 만들 수 있는 수의 개수
+  return set.size;
+}
