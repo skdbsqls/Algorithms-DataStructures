@@ -34,7 +34,7 @@ function solution(elements) {
   let circle = elements.concat(elements); // 원본 배열 + 원본 배열
 
   // 길이가 n인 연속 부분 수열
-  for (let i = 1; i <= elements.length; i++) {
+  for (let i = 0; i < elements.length; i++) {
     let sum = 0; // 부분 수열의 합
     // 길이가 n인 연속 부분 수열의 합
     for (let j = 0; j < elements.length; j++) {
