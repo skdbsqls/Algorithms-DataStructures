@@ -17,6 +17,18 @@
 */
 
 function solution(n, left, right) {
-  var answer = [];
+  let answer = [];
+
+  while (left <= right) {
+    // left부터 right까지 해당 좌표 구하기
+    let coor = [Math.floor(left / n), left % n];
+
+    // 해당 좌표의 값 구하기
+    let value = Math.max(coor[0], coor[1]);
+    answer.push(value + 1); // 해당 좌표의 최댓값 + 1
+
+    left++;
+  }
+
   return answer;
 }
