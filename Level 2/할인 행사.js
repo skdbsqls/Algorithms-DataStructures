@@ -59,6 +59,24 @@ function solution(want, number, discount) {
     if (flag) count++;
   }
   // 가능한 날이 없다면
-  if (count === 0) return 0;
+  return count;
+}
+
+// 다른 풀이
+function solution(want, number, discount) {
+  let count = 0;
+  for (let i = 0; i < discount.length - 9; i++) {
+    const slice = discount.slice(i, i + 10);
+
+    let flag = true;
+    for (let j = 0; j < want.length; j++) {
+      // filter를 사용해 10개씩 자른 배열 안에 원하는 제품의 수량이 알맞게 들어있는 지 확인
+      if (slice.filter((item) => item === want[j]).length !== number[j]) {
+        flag = false;
+        break;
+      }
+    }
+    if (flag) count += 1;
+  }
   return count;
 }
