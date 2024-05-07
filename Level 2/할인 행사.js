@@ -25,6 +25,40 @@ XYZ 마트에서 14일간 회원을 대상으로 할인하는 제품이 날짜 �
 */
 
 function solution(want, number, discount) {
-  var answer = 0;
-  return answer;
+  let count = 0; // 가능한 날
+
+  // 앞에서부터 10개씩 배열 자르기
+  for (let i = 0; i < discount.length - 9; i++) {
+    // 배열 10개씩 자르기
+    let slice = discount.slice(i, i + 10);
+
+    // 원하는 제품 및 수량
+    let list = {};
+    for (let i = 0; i < want.length; i++) {
+      list[want[i]] = number[i];
+    }
+
+    // 원하는 제품을 원하는 수량만큼 구매할 수 있는 지 확인
+    for (let j = 0; j < slice.length; j++) {
+      // 10개씩 자른 배열에 원하는 제품이 있는 경우 수량 -1
+      if (list[slice[j]]) {
+        list[slice[j]]--;
+      }
+    }
+
+    // 원하는 제품을 원하는 수량만큼 구매했는 지 확인
+    let flag = true;
+    for (let i = 0; i < want.length; i++) {
+      // 원하는 제품의 수량이 0이 아니라면 (원하는 만큼 구매하지 못 했다면)
+      if (list[want[i]] !== 0) {
+        flag = false;
+        break;
+      }
+    }
+    // 제대로 구매했다면
+    if (flag) count++;
+  }
+  // 가능한 날이 없다면
+  if (count === 0) return 0;
+  return count;
 }
