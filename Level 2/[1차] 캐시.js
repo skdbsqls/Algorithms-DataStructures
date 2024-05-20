@@ -20,7 +20,73 @@
 - cache miss일 경우 실행시간은 5이다.
 */
 
+// 오답(65 /100)
 function solution(cacheSize, cities) {
-  var answer = 0;
-  return answer;
+  let runtime = 0; // 실행 시간
+  let cache = new Array(cacheSize); // 캐시 크기에 따른 배열 생성
+
+  for (let i = 0; i < cities.length; i++) {
+    let city = cities[i].toLowerCase(); // 도시 이름은 대소문자 구분 X
+
+    // 캐시 메모리에 도시 이름이 있으면
+    if (cache.includes(city)) {
+      runtime += 1;
+    }
+    // 캐시 메모리에 도시 이름이 없으면
+    else {
+      // 캐시 메모리가 비어 있으면
+      if (cache.length === 0) {
+        cache.push(city); // 캐시 메모리에 도시 저장
+        runtime += 5;
+      }
+      // 캐시 메모리가 비어 있지 않으면
+      else {
+        cache.shift(); // 캐시 메모리에서 가장 오래된 도시 삭제
+        cache.push(city); // 캐시 메모리에 도시 저장
+        runtime += 5;
+      }
+    }
+  }
+
+  return runtime;
 }
+
+solution(3, [
+  "Jeju",
+  "Pangyo",
+  "Seoul",
+  "NewYork",
+  "LA",
+  "Jeju",
+  "Pangyo",
+  "Seoul",
+  "NewYork",
+  "LA",
+]);
+
+solution(3, [
+  "Jeju",
+  "Pangyo",
+  "Seoul",
+  "Jeju",
+  "Pangyo",
+  "Seoul",
+  "Jeju",
+  "Pangyo",
+  "Seoul",
+]);
+
+solution(5, [
+  "Jeju",
+  "Pangyo",
+  "Seoul",
+  "NewYork",
+  "LA",
+  "SanFrancisco",
+  "Seoul",
+  "Rome",
+  "Paris",
+  "Jeju",
+  "NewYork",
+  "Rome",
+]);
