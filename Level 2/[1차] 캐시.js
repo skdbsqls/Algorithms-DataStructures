@@ -20,7 +20,7 @@
 - cache miss일 경우 실행시간은 5이다.
 */
 
-// 오답(65 /100)
+// 오답(90 /100)
 function solution(cacheSize, cities) {
   let runtime = 0; // 실행 시간
   let cache = new Array(cacheSize); // 캐시 크기에 따른 배열 생성
@@ -30,63 +30,18 @@ function solution(cacheSize, cities) {
 
     // 캐시 메모리에 도시 이름이 있으면
     if (cache.includes(city)) {
+      let index = cache.indexOf(city); // 해당 도시 인덱스 찾기
+      cache.splice(index, 1); // 해당 도시 삭제
+      cache.push(city); // 해당 도시를 캐시 메모리 가장 마지막 요소로 저장
       runtime += 1;
     }
     // 캐시 메모리에 도시 이름이 없으면
     else {
-      // 캐시 메모리가 비어 있으면
-      if (cache.length === 0) {
-        cache.push(city); // 캐시 메모리에 도시 저장
-        runtime += 5;
-      }
-      // 캐시 메모리가 비어 있지 않으면
-      else {
-        cache.shift(); // 캐시 메모리에서 가장 오래된 도시 삭제
-        cache.push(city); // 캐시 메모리에 도시 저장
-        runtime += 5;
-      }
+      cache.shift(); // 캐시 메모리에서 가장 오래된 도시 삭제
+      cache.push(city); // 캐시 메모리에 도시 저장
+      runtime += 5;
     }
   }
 
   return runtime;
 }
-
-solution(3, [
-  "Jeju",
-  "Pangyo",
-  "Seoul",
-  "NewYork",
-  "LA",
-  "Jeju",
-  "Pangyo",
-  "Seoul",
-  "NewYork",
-  "LA",
-]);
-
-solution(3, [
-  "Jeju",
-  "Pangyo",
-  "Seoul",
-  "Jeju",
-  "Pangyo",
-  "Seoul",
-  "Jeju",
-  "Pangyo",
-  "Seoul",
-]);
-
-solution(5, [
-  "Jeju",
-  "Pangyo",
-  "Seoul",
-  "NewYork",
-  "LA",
-  "SanFrancisco",
-  "Seoul",
-  "Rome",
-  "Paris",
-  "Jeju",
-  "NewYork",
-  "Rome",
-]);
