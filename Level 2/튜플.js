@@ -37,6 +37,40 @@
 */
 
 function solution(s) {
-  var answer = [];
-  return answer;
+  let arr = s.split("},"); // 배열로 변환
+
+  // 2차원 배열로 변환
+  let sArr = []; // 튜플을 표현하는 집합이 담긴 배열
+  for (let i = 0; i < arr.length; i++) {
+    let s = ""; // 튜플을 표현하는 집합
+    for (let j = 0; j < arr[i].length; j++) {
+      if (arr[i][j] !== "{" && arr[i][j] !== "}") s += arr[i][j];
+    }
+    sArr.push(s.split(","));
+  }
+
+  // 원소의 개수에 따라 정렬하기
+  let sortArr = [];
+  for (let i = 0; i < sArr.length; i++) {
+    let length = sArr[i].length;
+    sortArr[length - 1] = sArr[i];
+  }
+
+  // 튜플 구하기
+  let tuple = []; // 튜플
+  // 튜플의 원소가 하나인 경우
+  if (sortArr.length === 1) {
+    tuple.push(Number(sortArr[0]));
+  }
+  // 튜플의 원소가 여러개인 경우
+  else {
+    for (let i = 0; i < sortArr.length; i++) {
+      for (let j = 0; j < sortArr[i].length; j++) {
+        if (!tuple.includes(Number(sortArr[i][j])))
+          tuple.push(Number(sortArr[i][j]));
+      }
+    }
+  }
+
+  return tuple;
 }
