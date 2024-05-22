@@ -17,7 +17,7 @@ n개의 음이 아닌 정수들이 있습니다. 이 정수들을 순서를 바�
 - 타겟 넘버는 1 이상 1000 이하인 자연수입니다.
 */
 
-// 오답 (Maximum call stack size exceeded)
+// 정답
 function solution(numbers, target) {
   let count = 0;
 
@@ -29,8 +29,8 @@ function solution(numbers, target) {
       return;
     }
 
-    dfs(sum + numbers[index], index++);
-    dfs(sum - numbers[index], index++);
+    dfs(sum + numbers[index], index + 1);
+    dfs(sum - numbers[index], index + 1);
   };
 
   dfs(0, 0);
