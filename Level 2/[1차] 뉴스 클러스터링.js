@@ -45,7 +45,7 @@ Daum 뉴스의 개발 업무를 맡게 된 신입사원 튜브는 사용자들�
 유사도 값은 0에서 1 사이의 실수이므로, 이를 다루기 쉽도록 65536을 곱한 후에 소수점 아래를 버리고 정수부만 출력한다.
 */
 
-// 오답 (61.5 / 100.0)
+// 정답
 function solution(str1, str2) {
   // 두 글자씩 끊어서 다중집합의 원소로 만들기
   const makeSet = (str) => {
@@ -65,19 +65,20 @@ function solution(str1, str2) {
   let arrA = makeSet(str1); // 다중집합 A
   let arrB = makeSet(str2); // 다중집합 B
 
-  // 교집합의 크기 구하기
+  // 교집합 구하기
   let intersection = 0;
   for (let i = 0; i < arrA.length; i++) {
     for (let j = 0; j < arrB.length; j++) {
       if (arrA[i] === arrB[j]) {
         intersection++;
+        arrB.splice(j, 1);
         break;
       }
     }
   }
 
-  // 합집합의 크기 구하기
-  let union = arrA.length + arrB.length - intersection;
+  // 합집합 크기 구하기
+  let union = arrA.length + arrB.length;
 
   // 유사도 구하기
   let similarity = 0;
