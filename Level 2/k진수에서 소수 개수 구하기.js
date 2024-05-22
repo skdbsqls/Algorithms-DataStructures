@@ -21,7 +21,27 @@
 - 3 ≤ k ≤ 10
 */
 
+// 오답(78.6 / 100.0)
 function solution(n, k) {
-  var answer = -1;
-  return answer;
+  let temp = n.toString(k); // 진수 변환
+  let primes = [];
+
+  let str = ""; // 소수
+  for (let i = 0; i < temp.length; i++) {
+    // 0인 경우
+    if (temp[i] !== "0") {
+      str += temp[i]; // += 소수
+      if (i === temp.length - 1) {
+        primes.push(str); // 마지막 숫자인 경우
+      }
+    }
+    // 0이 아닌 경우
+    else {
+      // 1은 소수가 아님
+      if (str !== "1" && str !== "") primes.push(str);
+      str = "";
+    }
+  }
+
+  return primes.length;
 }
