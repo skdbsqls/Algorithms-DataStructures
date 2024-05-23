@@ -21,30 +21,26 @@
 - 3 ≤ k ≤ 10
 */
 
-// 오답(85.7 / 100.0)
+// 정답
 function solution(n, k) {
-  // "0"을 기준으로 배열로 변환 후 ""과 "1"은 제거
   let arr = n
-    .toString(k)
-    .split("0")
-    .filter((v) => v !== "" && v !== "1");
+    .toString(k) // 진수 변환
+    .split("0") // "0"을 기준으로 배열로 변환
+    .map((v) => Number(v)); // 숫자로 변환
 
-  let primes = []; // 소수
-
-  // 소수 판별하기
-  for (let i = 0; i < arr.length; i++) {
-    let isPrime = true;
-    for (let j = 2; j <= Math.sqrt(arr[i]); j++) {
-      if (arr[i] % j === 0) {
-        isPrime = false;
-        return;
-      }
-    }
-    if (isPrime) {
-      primes.push(arr[i]);
-      isPrime = true;
-    }
-  }
+  // 소수
+  let primes = arr.filter((v) => isPrime(v));
 
   return primes.length;
 }
+
+// 소수 판별하기
+const isPrime = (num) => {
+  if (num <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      return false;
+    }
+  }
+  return true;
+};
