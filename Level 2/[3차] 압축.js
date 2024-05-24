@@ -33,6 +33,62 @@ LZW 압축은 다음 과정을 거친다.
 */
 
 function solution(msg) {
-  var answer = [];
-  return answer;
+  const indexs = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z",
+  ];
+  let result = []; // 압축한 후의 사전 색인 번호
+  let w = ""; // 현재 입력
+  let c = ""; // 다음 글자
+
+  for (let i = 0; i < msg.length; i++) {
+    w = msg[i]; // 현재 입력 글자 추가
+    c = msg[i + 1]; // 다음 글자 추가
+
+    // 현재 입력 글자 + 다음 글자가 사전에 등록되어 있지 않은 경우
+    if (!indexs.includes(w + c)) {
+      let index = indexs.indexOf(w) + 1; // 현재 입력 글자의 색인 번호를 찾아서
+
+      result.push(index); // 결과에 입력
+      indexs.push(w + c); // 현재 입력 글자 + 다음 글자 사전에 등록
+    }
+    // 현재 입력 글자 + 다음 글자가 사전에 등록되어 있는 경우
+    else {
+      // 현재 입력 글자 + 다음 + 다음 (어디까지 등록되어 있는지 찾기)
+      while (indexs.includes(w + c)) {
+        w = w + c;
+        c = msg[++i + 1];
+      }
+      let index = indexs.indexOf(w) + 1; // 등록되어 있는 글자의 색인 번호를 찾아서
+
+      result.push(index); // 결과에 입력
+      indexs.push(w + c); // 다음 글자 추가해서 사전에 등록
+    }
+  }
+
+  return result;
 }
