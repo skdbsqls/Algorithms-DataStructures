@@ -30,6 +30,46 @@ ROR 게임은 두 팀으로 나누어서 진행하며, 상대 팀 진영을 먼�
 */
 
 function solution(maps) {
-  var answer = 0;
-  return answer;
+  let n = maps.length - 1; // 행
+  let m = maps[0].length - 1; // 열
+  let dir = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ]; // 상하좌우
+
+  let bfs = () => {
+    let queue = [[0, 0, 1]]; // 행, 열, 이동거리
+
+    // 큐가 비어 있지 않을 때까지 반복
+    while (queue.length > 0) {
+      let [x, y, move] = queue.shift();
+
+      // 상대 팀 진영 도착 시 이동거리 리턴
+      if (x === n && y === m) return move;
+
+      // 상하좌우 이동 여부
+      for (let i = 0; i < dir.length; i++) {
+        // 이동 후 새로운 위치
+        let newX = x + dir[i][0];
+        let newY = y + dir[i][1];
+
+        // 새로운 위치가 벽이 아니면서 맵 내에 위치할 경우
+        if (
+          newX >= 0 &&
+          newX <= n &&
+          newY >= 0 &&
+          newY <= m &&
+          maps[newX][newY] === 1
+        ) {
+          queue.push([newX, newY, move + 1]); // 새로운 위치로 이동
+          maps[newX][newY] = 0; // 방문한 위치는 0으로 표시
+        }
+      }
+    }
+    return -1; // 상대 팀 진영에 도착할 수 없는 경우
+  };
+
+  return bfs();
 }
