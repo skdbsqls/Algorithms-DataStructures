@@ -29,5 +29,18 @@
 
 function solution(n, t, m, p) {
   let answer = "";
+  let str = "";
+
+  // (개수 X 인원)까지 숫자 구하기
+  for (let i = 0; i < t * m; i++) {
+    // 진수 변환, 16진법에 경우 알파벳이 나올 수 있음 이는 대문자로 출력
+    str += i.toString(n).toUpperCase();
+  }
+
+  // 튜브의 순서에 맞는 숫자를 갯수만큼 구하기
+  for (let i = p - 1; i < t * m; i += m) {
+    answer += str[i];
+  }
+
   return answer;
 }
