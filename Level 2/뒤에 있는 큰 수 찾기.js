@@ -32,3 +32,24 @@ function solution(numbers) {
 
   return answer;
 }
+
+// 오답(82.6 / 100.0) - 시간 초과
+function solution(numbers) {
+  let answer = [];
+
+  for (let i = 0; i < numbers.length; i++) {
+    let target = numbers[i];
+    let max = -1;
+
+    for (let j = i + 1; j < numbers.length; j++) {
+      if (target < numbers[j]) {
+        max = numbers[j];
+        break;
+      }
+    }
+
+    answer.push(max);
+  }
+
+  return answer;
+}
