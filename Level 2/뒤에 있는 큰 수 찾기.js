@@ -9,7 +9,26 @@
  - 1 ≤ numbers[i] ≤ 1,000,000
 */
 
+// 오답(56.5 / 100.0) - 시간 초과
 function solution(numbers) {
-  var answer = [];
+  let answer = [];
+
+  // numbers 배열의 원소가 없어질 때까지
+  while (numbers.length) {
+    let target = numbers.shift(); // 배열의 각 원소
+    let max = -1; // 뒤에 있는 큰 수 (뒷 큰수가 없는 경우: -1)
+
+    // 자신보다 뒤에 있는 숫자 중에서
+    for (let i = 0; i < numbers.length; i++) {
+      // 자신보다 크면서 가장 가까이 있는 수가 있다면
+      if (target < numbers[i]) {
+        max = numbers[i]; // 뒷 큰수
+        break;
+      }
+    }
+
+    answer.push(max);
+  }
+
   return answer;
 }
