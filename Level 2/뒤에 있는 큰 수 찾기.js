@@ -53,3 +53,19 @@ function solution(numbers) {
 
   return answer;
 }
+
+// 정답
+function solution(numbers) {
+  let answer = new Array(numbers.length).fill(-1);
+  let stack = [];
+
+  for (let i = 0; i < numbers.length; i++) {
+    let num = numbers[i];
+    while (stack.length && numbers[stack.at(-1)] < num) {
+      answer[stack.pop()] = num;
+    }
+    stack.push(i);
+  }
+
+  return answer;
+}
