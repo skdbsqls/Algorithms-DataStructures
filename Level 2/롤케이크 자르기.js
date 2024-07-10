@@ -23,6 +23,39 @@
 */
 
 function solution(topping) {
-  var answer = -1;
-  return answer;
+  let count = 0; // 공평하게 자르는 방법의 수
+  let mine = new Map(); // 롤케이크 토핑의 종류 별 개수 (후에 철수의 토핑의 개수)
+  let brother = new Set(); // 동생의 토핑 개수
+
+  // mine에 토핑의 종류 별 개수 저장
+  for (let i = 0; i < topping.length; i++) {
+    // 토핑의 종류가 이미 등록된 경우
+    if (mine.has(topping[i])) {
+      mine.set(topping[i], mine.get(topping[i]) + 1);
+    }
+    // 토핑의 종류가 등록되지 않은 경우
+    else {
+      mine.set(topping[i], 1);
+    }
+  }
+
+  // 동생과 토핑을 나눠가짐
+  for (let i = 0; i < topping.length; i++) {
+    if (mine.has(topping[i])) {
+      mine.set(topping[i], mine.get(topping[i]) - 1); // 철수의 토핑 개수에서 빼서
+      brother.add(topping[i]); // 동생에게 줌
+    }
+
+    // 철수의 토핑의 개수가 0인 경우 해당 토핑 종류는 삭제
+    if (mine.get(topping[i]) === 0) {
+      mine.delete(topping[i]);
+    }
+
+    // 철수의 토핑 개수와 동생의 토핑 개수가 같은 경우
+    if (mine.size === brother.size) {
+      count++;
+    }
+  }
+
+  return count;
 }
