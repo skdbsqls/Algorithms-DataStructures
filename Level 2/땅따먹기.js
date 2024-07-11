@@ -22,7 +22,32 @@
 - 점수 : 100 이하의 자연수
 */
 
+// 오답
 function solution(land) {
-  var answer = 0;
-  return answer;
+  let max = 0; // 최대값
+  let idx = 0; // 최대값의 인덱스
+
+  for (let i = 1; i < land.length; i++) {
+    max = Math.max(...land[i - 1]); // 각 행의 최대값 찾기
+    idx = land[i - 1].indexOf(max); // 각 행의 최대값의 인덱스 찾기
+
+    land[i][idx] = 0; // 같은 열의 수는 밟을 없으므로 0을 할당
+
+    // 행을 돌면서 이전 행의 최대값을 더한 값으로 업데이트
+    for (let j = 0; j < land[i].length; j++) {
+      land[i][j] = land[i][j] + max;
+    }
+  }
+
+  // 최대값을 마지막 행의 최대값으로 업데이트
+  max = Math.max(...land[land.length - 1]);
+
+  return max;
 }
+
+// 반례
+solution([
+  [1, 1, 3, 1],
+  [2, 3, 2, 2],
+  [1, 4, 1, 1],
+]);
