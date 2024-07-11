@@ -22,7 +22,7 @@
 - 점수 : 100 이하의 자연수
 */
 
-// 오답
+// 정답
 function solution(land) {
   let max = 0; // 최대값
   let idx = 0; // 최대값의 인덱스
@@ -30,12 +30,19 @@ function solution(land) {
   for (let i = 1; i < land.length; i++) {
     max = Math.max(...land[i - 1]); // 각 행의 최대값 찾기
     idx = land[i - 1].indexOf(max); // 각 행의 최대값의 인덱스 찾기
-
-    land[i][idx] = 0; // 같은 열의 수는 밟을 없으므로 0을 할당
+    land[i - 1][idx] = 0; // 최대값에 0을 할당해서 다음 행에서 이전과 같은 열일 경우 2번째 최대값 찾기
 
     // 행을 돌면서 이전 행의 최대값을 더한 값으로 업데이트
     for (let j = 0; j < land[i].length; j++) {
-      land[i][j] = land[i][j] + max;
+      // 이전과 같은 열일 경우 (해당 열의 이전 값이 최대값인 경우)
+      if (j === idx) {
+        // 이전 행에서 최대값을 제외하고 2번째 최대값을 찾아 더해줌
+        land[i][j] = land[i][j] + Math.max(...land[i - 1]);
+      }
+      // 이전과 다른 열일 경우 (해당 열의 이전 값이 최대값이 아닌 경우)
+      else {
+        land[i][j] = land[i][j] + max; // 최대값을 더해줌
+      }
     }
   }
 
@@ -44,10 +51,3 @@ function solution(land) {
 
   return max;
 }
-
-// 반례
-solution([
-  [1, 1, 3, 1],
-  [2, 3, 2, 2],
-  [1, 4, 1, 1],
-]);
