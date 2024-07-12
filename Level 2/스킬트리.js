@@ -41,6 +41,8 @@ function solution(skill, skill_trees) {
   }
   console.log(skill_trees); // ['O', 'O', 'X', 'X', 'X', 'AEX', 'X', 'X', 'O', 'X']
   console.log(skill_trees.filter((v) => v === "O").length); // 3
+
+  // 오답 이유: 선행 스킬과 무관해 가능한 스킬트리는 "O"를 표시할 수 없는 구조
   return skill_trees.filter((v) => v === "O").length;
 }
 
@@ -57,3 +59,24 @@ solution("CBDK", [
   "IJCB",
   "LMDK",
 ]);
+
+// function solution(skill, skill_trees) {
+//   skill = skill.split(""); // 선행 스킬 순서 배열로 변환
+//   let count = skill_trees.length; // 스킬 트리 총 개수
+
+//   for (let i = 0; i < skill_trees.length; i++) {
+//     let tree = skill_trees[i]; // 스킬 트리
+//     let skills = [...skill]; // 스킬 복사
+
+//     for (let j = 0; j < tree.length; j++) {
+//       // 스킬 트리의 스킬이 선행 스킬 순서와 관련 없으면 pass
+//       if (!skill.includes(tree[j])) continue;
+//       // 선행 스킬 순서를 지키질 않는 스킬 트리는 불가능
+//       if (skills.shift() !== tree[j]) {
+//         count--; // 총 개수에서 -1
+//         break; // 선행 스킬을 배우지 않은 경우 뒤는 볼 필요 X
+//       }
+//     }
+//   }
+//   return count;
+// }
