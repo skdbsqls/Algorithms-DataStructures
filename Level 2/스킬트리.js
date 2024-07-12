@@ -31,7 +31,7 @@ function solution(skill, skill_trees) {
     for (let j = 0; j < tree.length; j++) {
       // 스킬 트리의 스킬이 선행 스킬 순서와 관련 없으면 pass
       if (!skill.includes(tree[j])) continue;
-      // 선행 스킬 순서를 지키질 않는 스킬 트리는 불가능
+      // 선행 스킬 순서를 지키지 않는 스킬 트리는 불가능
       if (skills.shift() !== tree[j]) {
         skill_trees[i] = "X";
         break; // 선행 스킬을 배우지 않은 경우 뒤는 볼 필요 X
@@ -72,7 +72,7 @@ function solution(skill, skill_trees) {
     for (let j = 0; j < tree.length; j++) {
       // 스킬 트리의 스킬이 선행 스킬 순서와 관련 없으면 pass
       if (!skill.includes(tree[j])) continue;
-      // 선행 스킬 순서를 지키질 않는 스킬 트리는 불가능
+      // 선행 스킬 순서를 지키지 않는 스킬 트리는 불가능
       if (skills.shift() !== tree[j]) {
         count--; // 총 개수에서 -1
         break; // 선행 스킬을 배우지 않은 경우 뒤는 볼 필요 X
