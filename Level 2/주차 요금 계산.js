@@ -67,58 +67,54 @@
      -  주차장에 이미 있는 차량(차량번호가 같은 차량)이 다시 입차되는 경우
 */
 
-// 오답 (93.8 / 100.0)
+// 정답
 function solution(fees, records) {
-  let recordMap = {}; // 차량 번호 별 입/출차 시각
+  let parkingTimes = {}; // 차량 번호 별 입/출차 시각
   for (let i = 0; i < records.length; i++) {
-    let record = records[i].split(" "); // 입/출차 기록
-    let time = record[0].split(":");
+    let [time, carNum, status] = records[i].split(" "); // 시각, 차량 번호, 입/출차
+    let [hour, minute] = time.split(":"); // 시, 분
+    time = Number(hour) * 60 + Number(minute); // 입/출차 시각을 분으로 단위 통일
 
-    let carNum = record[1]; // 차량 번호
-    let minutes = Number(time[0]) * 60 + Number(time[1]); // 입/출차 시각 -> 분
-
-    // 차량 번호 별 입/출차 시각(분으로 환산) 등록
-    if (!recordMap[carNum]) {
-      recordMap[carNum] = [minutes];
+    // 차량 번호 별 입/출차 시각(분으로 환산) 등록하기
+    if (!parkingTimes[carNum]) {
+      parkingTimes[carNum] = [time];
     } else {
-      recordMap[carNum].push(minutes);
+      parkingTimes[carNum].push(time);
     }
   }
 
   let totalFees = []; // 차량번호 별 주차 요금
-  for (let carNum in recordMap) {
+  for (let carNum in parkingTimes) {
     // 입차된 후에 출차 기록이 없으면 23:59(1439분)에 출차된 것으로 간주
-    if (recordMap[carNum].length % 2 === 1) {
-      recordMap[carNum].push(1439);
+    if (parkingTimes[carNum].length % 2 === 1) {
+      parkingTimes[carNum].push(1439);
     }
 
-    let record = recordMap[carNum]; // 입/출차 시각(분) 기록
-    let totalMinutes = 0; // 누적 주차 시간
-
-    // 누적 주차 시간 계산
-    for (let i = 1; i < record.length; i += 2) {
-      totalMinutes += record[i] - record[i - 1];
+    let totalTime = 0; // 누적 주차 시간
+    // 누적 주차 시간 계산하기
+    let parkingTime = parkingTimes[carNum]; // 입/출차 시각(분) 기록
+    for (let i = 1; i < parkingTime.length; i += 2) {
+      totalTime += parkingTime[i] - parkingTime[i - 1];
     }
 
-    // 주차 요금 계산
-    let totalFee = 0;
+    let totalFee = 0; // 주차 요금
+    // 주차 요금 계산하기
+    let [basicTime, basicFee, unitTime, unitFee] = fees; // 기본 시간, 기본 요금, 단위 시간, 단위 요금
     // 기본 시간 이하면
-    if (totalMinutes <= fees[0]) {
-      totalFee = fees[1]; // 기본 요금
+    if (totalTime <= basicTime) {
+      totalFee = basicFee; // 기본 요금
     }
     // 기본 시간 초과면
     else {
       totalFee =
-        // 기본 요금 + 초과 시간 요금
-        fees[1] + Math.ceil((totalMinutes - fees[0]) / fees[2]) * fees[3];
+        basicFee + Math.ceil((totalTime - basicTime) / unitTime) * unitFee; // 기본 요금 + 초과 시간 요금
     }
 
-    totalFees.push([carNum, totalFee]);
+    totalFees.push([carNum, totalFee]); // [차량번호, 주차 요금]
   }
 
   let answer = []; // 청구할 주차 요금
-  // 차량 번호가 작은 자동차부터 요금 정렬(오름차순 정렬)
-  totalFees.sort((a, b) => a[0] + a[1] - (b[0] + b[1]));
+  totalFees.sort((a, b) => a[0] - b[0]); // 차량 번호가 작은 자동차부터 요금 정렬(오름차순 정렬)
   totalFees.map((v) => answer.push(v[1])); // 주차 요금 담아서
 
   return answer;
