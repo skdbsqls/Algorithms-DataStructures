@@ -42,6 +42,7 @@ function solution(order) {
     else {
       // 보조 컨테이너 벨트에서 순서에 맞는 상자를 꺼낼 수 있는 지 확인
       if (stack.length !== 0 && stack.at(-1) === order[idx]) {
+        stack.pop(); // 상자를 꺼내서
         truck++; // 트럭에 싣고
         idx++; // 다음 순서로 넘어감
       }
@@ -57,3 +58,25 @@ function solution(order) {
 
 solution([4, 3, 1, 2, 5]); // 2 [ 1, 2, 3 ]
 solution([5, 4, 3, 2, 1]); // 1 [ 1, 2, 3, 4 ]
+
+// 정답
+function solution(order) {
+  let truck = 0; // 트럭에 실을 수 있는 상자 개수
+  let idx = 0; // 정해진 순서의 인덱스
+  let stack = []; // 보조 컨테이너 벨트
+
+  for (let i = 1; i <= order.length; i++) {
+    // 메인 컨테이너 벨트에서 상자를 내려서 보조 컨테이너 벨트에 보관
+    stack.push(i);
+
+    // 보조 컨테이너 벨트에서 순서에 맞는 상자를 꺼낼 수 있다면 (꺼내지 못 할 때까지 반복해서 꺼냄)
+    while (stack.length !== 0 && stack.at(-1) === order[idx]) {
+      stack.pop(); // 상자를 꺼내서
+      truck++; // 트럭에 싣고
+      idx++; // 다음 순서로 넘어감
+    }
+  }
+
+  return truck;
+}
+// => 각 상자를 꺼낼 때마다 보조 컨테이너 벨트의 상태를 반복적으로 확인하여 트럭에 실을 수 있는 모든 상자를 실을 수 있다.
