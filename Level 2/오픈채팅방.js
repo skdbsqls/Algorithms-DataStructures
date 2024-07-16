@@ -62,6 +62,36 @@ Muzi가 나간후 다시 들어올 때, Prodo 라는 닉네임으로 들어올 �
 */
 
 function solution(record) {
-  var answer = [];
-  return answer;
+  let names = {}; // { 아이디: 닉네임 }
+  let states = []; // [ 아이디, 상태(E/L) ]
+
+  for (let i = 0; i < record.length; i++) {
+    let [state, id, name] = record[i].split(" "); // 상태, 아이디, 닉네임
+
+    // 아이디와 닉네임 등록
+    if (!names[id]) names[id] = name; // 등록되지 않은 아이디인 경우 아이디와 닉네임 등록
+    if (names[id] !== name && name !== undefined) names[id] = name; // 이전 닉네임과 다르거나, 같은 이름으로 채팅방을 떠난 상태가 아닌 경우 닉네임 변경
+
+    // 아이디와 상태 등록
+    if (state !== "Change") states.push([id, state]); // 변경 상황이 아닌 경우 아이디와 상태 등록
+  }
+
+  let messages = []; // 최종 메시지
+
+  for (let i = 0; i < states.length; i++) {
+    let [id, state] = states[i]; // 아이디, 상태
+
+    // 닉네임 찾기
+    let name = names[id];
+
+    // 상태 문구 정하기
+    if (state === "Enter") state = "들어왔";
+    if (state === "Leave") state = "나갔";
+
+    // 최종 메시지
+    let message = `${name}님이 ${state}습니다.`;
+    messages.push(message);
+  }
+
+  return messages;
 }
