@@ -14,7 +14,30 @@
 - 1 ≤ n < y
 */
 
+// 오답 (50.0 / 100.0)
 function solution(x, y, n) {
-  var answer = 0;
+  let answer = -1;
+  let counts = [];
+
+  function dfs(x, count) {
+    if (x === y) {
+      counts.push(count);
+      return;
+    }
+
+    if (x > y) return;
+
+    dfs(x + n, count + 1);
+    dfs(x * 2, count + 1);
+    dfs(x * 3, count + 1);
+  }
+
+  dfs(x, 0);
+
+  counts.length ? (answer = Math.min(...counts)) : (answer = -1);
   return answer;
 }
+
+solution(10, 40, 5);
+solution(10, 40, 30);
+solution(2, 5, 4);
