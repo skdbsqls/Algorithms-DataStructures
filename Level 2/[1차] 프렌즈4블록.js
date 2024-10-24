@@ -26,12 +26,13 @@ function solution(m, n, board) {
   while (true) {
     const erase = []; // 지워질 블록들의 좌표
 
-    for (let i = 0; i < m; i++) {
-      for (let j = 0; j < n; j++) {
-        let select = [i][j]; // 현재 선택된 블록의 좌표
+    for (let i = 0; i < m - 1; i++) {
+      for (let j = 0; j < n - 1; j++) {
+        let select = board[i][j]; // 현재 선택된 블록의 좌표
 
         // 현재 선택된 블록의 좌표가 4블록에 해당하는 조건이라면
         if (
+          select !== 0 && // 우선, 블록이 비어있지 않아야 함
           select === board[i + 1][j] &&
           select === board[i + 1][j + 1] &&
           select === board[i][j + 1]
@@ -40,7 +41,31 @@ function solution(m, n, board) {
         }
       }
     }
+
+    // ----> 더 이상 지울 블록이 없다면 지워지는 블록의 개수(0의 개수)를 반환
+    if (!erase.length) return board.flat().filter((v) => v === 0).length;
+
+    // 찾아낸 지워질 블록들을 0으로 변환 (4블록 지우기)
+    erase.forEach(([i, j]) => {
+      board[i][j] = 0;
+      board[i][j + 1] = 0;
+      board[i + 1][j] = 0;
+      board[i + 1][j + 1] = 0;
+    });
+
+    // 위에 있는 블록 아래로 내려서 채우기 (이때 맨 아래부터 탐색해야 함)
+    for (let i = m - 1; i > 0; i--) {
+      for (let j = 0; j < n; j++) {
+        // 맨 아래에서 한 줄 위부터 비교
+        // 만약 해당 좌표가 0이면서 비교 대상 좌표가 0이 아니라면(위에서 내려와야할 블록이라면)
+        for (let k = i - 1; k >= 0; k--) {
+          if (board[i][j] === 0 && board[k][j] !== 0) {
+            board[i][j] = board[k][j]; // 둘을 바꾸고(위에서 내리고)
+            board[k][j] = 0; // 위에서 내려왔기 때문에 그 자리는 0으로 채움
+            break;
+          }
+        }
+      }
+    }
   }
 }
-
-solution(4, 5, ["CCBDE", "AAADE", "AAABF", "CCBBF"]);
